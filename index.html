@@ -281,6 +281,11 @@
       flex-shrink: 0;
     }
 
+    .tid.pub {
+      background: var(--brand-lt);
+      color: var(--brand-dk)
+    }
+
     .tid.adm {
       background: var(--admin-bg);
       color: var(--admin-text)
@@ -422,6 +427,11 @@
       border-bottom: 3px solid
     }
 
+    .part-hdr.pub {
+      background: var(--brand-lt);
+      border-color: var(--brand)
+    }
+
     .part-hdr.adm {
       background: var(--admin-bg);
       border-color: var(--admin)
@@ -441,6 +451,11 @@
       padding: 5px 12px;
       border-radius: 100px;
       margin-bottom: 10px;
+    }
+
+    .part-tag.pub {
+      background: var(--brand);
+      color: #fff
     }
 
     .part-tag.adm {
@@ -478,6 +493,10 @@
       border-left: 3px solid transparent;
     }
 
+    .screen.pub {
+      border-left-color: var(--brand)
+    }
+
     .screen.adm {
       border-left-color: var(--admin)
     }
@@ -502,6 +521,12 @@
       flex-shrink: 0;
       margin-top: 4px;
       border: 1px solid;
+    }
+
+    .scr-badge.pub {
+      background: var(--brand-lt);
+      color: var(--brand-dk);
+      border-color: rgba(13, 148, 136, .25)
     }
 
     .scr-badge.adm {
@@ -763,7 +788,7 @@
 
     .check-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px
     }
 
@@ -782,6 +807,10 @@
       margin-bottom: 14px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
+    }
+
+    .cg-title.pub {
+      color: var(--brand-dk)
     }
 
     .cg-title.adm {
@@ -822,6 +851,11 @@
       padding: 2px 6px;
       border-radius: 4px;
       flex-shrink: 0;
+    }
+
+    .ci .cid.pub {
+      background: var(--brand-lt);
+      color: var(--brand-dk)
     }
 
     .ci .cid.adm {
@@ -869,6 +903,7 @@
     <p class="cover-sub">Guia completo de apresentação e teste — Portal Admin + Portal Owner. 19 telas documentadas com
       roteiro de navegação.</p>
     <div class="cover-pills">
+      <div class="cpill"><span>1</span> página pública</div>
       <div class="cpill"><span>11</span> telas Admin</div>
       <div class="cpill"><span>8</span> telas Owner</div>
       <div class="cpill">Ambiente de teste</div>
@@ -880,6 +915,8 @@
   <div class="toc">
     <h4>Índice de telas</h4>
     <div class="toc-grid">
+      <div class="toc-sep">Website Público</div>
+      <a href="#pub-00" class="toc-item"><span class="tid pub">PUB-00</span> Sobre / Landing Page</a>
       <div class="toc-sep">Portal Admin</div>
       <a href="#adm-00" class="toc-item"><span class="tid adm">ADM-00</span> Login</a>
       <a href="#adm-01" class="toc-item"><span class="tid adm">ADM-01</span> Dashboard</a>
@@ -907,33 +944,73 @@
   <!-- ════════════ INTRO ════════════ -->
   <div class="intro">
     <h4 style="margin-bottom:20px">O que é o sistema</h4>
-    <p class="intro-lead">O <strong>Gas Station App</strong> é uma plataforma com três frentes integradas: um
+    <p class="intro-lead">O <strong>Gas Station App</strong> (ou <strong>Number 2</strong>) é uma plataforma com frentes integradas: um
       <strong>app mobile</strong> onde qualquer pessoa encontra e avalia banheiros de postos, um <strong>Portal
         Owner</strong> onde donos de posto gerenciam seu negócio e pagam pelo serviço, e um <strong>Portal
         Admin</strong> onde nossa equipe opera e monitora tudo.</p>
 
+    <!-- Uma plataforma, três protagonistas -->
     <div class="model-grid">
       <div class="model-card app">
         <div class="mc-ico">📱</div>
-        <div class="mc-title">App Mobile</div>
-        <div class="mc-desc">Viajante busca postos, lê avaliações de banheiros e deixa sua própria nota. Grátis, com
-          recursos premium por assinatura.</div>
-      </div>
-      <div class="model-card adm">
-        <div class="mc-ico">🛠</div>
-        <div class="mc-title">Portal Admin</div>
-        <div class="mc-desc">Nossa equipe interna aprova donos, modera conteúdo, gerencia o time e acompanha toda a
-          receita em tempo real.</div>
+        <div class="mc-title">O Usuário (App Mobile)</div>
+        <div class="mc-desc">Quem está na estrada buscando tranquilidade e paradas de banheiro seguras.</div>
+        <ul style="list-style: none; margin-top: 12px; font-size: 13px; color: #475569; display: flex; flex-direction: column; gap: 6px;">
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--brand); font-weight: bold;">✓</span> Encontra banheiros próximos pelo app</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--brand); font-weight: bold;">✓</span> Vê avaliações reais (limpeza, acessibilidade, estrutura)</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--brand); font-weight: bold;">✓</span> Avalia e ajuda a comunidade</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--brand); font-weight: bold;">✓</span> Planeja viagens com paradas de banheiro</li>
+        </ul>
       </div>
       <div class="model-card own">
         <div class="mc-ico">⛽</div>
-        <div class="mc-title">Portal Owner</div>
-        <div class="mc-desc">Dono de posto reivindica seu espaço, envia documentos, responde avaliações e assina um
-          plano de gestão mensal.</div>
+        <div class="mc-title">O Dono do Posto (Portal Owner)</div>
+        <div class="mc-desc">Nosso cliente B2B que paga para gerenciar seu espaço e atrair mais clientes.</div>
+        <ul style="list-style: none; margin-top: 12px; font-size: 13px; color: #475569; display: flex; flex-direction: column; gap: 6px;">
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--owner); font-weight: bold;">✓</span> Reivindica seu posto na plataforma</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--owner); font-weight: bold;">✓</span> Gerencia banheiros, estrutura e fotos</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--owner); font-weight: bold;">✓</span> Responde avaliações e resolve problemas</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--owner); font-weight: bold;">✓</span> Atrai mais movimento melhorando a reputação</li>
+        </ul>
+      </div>
+      <div class="model-card adm">
+        <div class="mc-ico">🛠</div>
+        <div class="mc-title">A Plataforma (Portal Admin)</div>
+        <div class="mc-desc">Nossa equipe interna que opera, modera e garante a confiança de toda a rede.</div>
+        <ul style="list-style: none; margin-top: 12px; font-size: 13px; color: #475569; display: flex; flex-direction: column; gap: 6px;">
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--admin); font-weight: bold;">✓</span> Verifica e aprova os donos (documentos/KYC)</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--admin); font-weight: bold;">✓</span> Modera avaliações e combate fraude</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--admin); font-weight: bold;">✓</span> Acompanha métricas e receita em tempo real</li>
+          <li style="display: flex; gap: 6px; align-items: flex-start;"><span style="color: var(--admin); font-weight: bold;">✓</span> Garante a confiança de toda a rede</li>
+        </ul>
       </div>
     </div>
 
-    <div class="narrative">
+    <!-- O problema que resolvemos -->
+    <div style="margin-top: 44px;">
+      <h4 style="margin-bottom: 8px;">O problema que resolvemos</h4>
+      <p style="margin-bottom: 20px; color: var(--muted); font-size: 14px;">Para milhões de pessoas — viajantes, caminhoneiros, famílias, gestantes, pessoas com condições de saúde — encontrar um banheiro confiável fora de casa é uma fonte real de estresse.</p>
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">📍</div>
+          <div class="mc-title">Informação espalhada</div>
+          <div class="mc-desc">Não existe um lugar único e confiável para saber onde tem banheiro limpo na rota.</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">⭐</div>
+          <div class="mc-title">Sem qualidade garantida</div>
+          <div class="mc-desc">Parar num posto é loteria: o banheiro pode estar sujo, fechado ou nem existir.</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">🏢</div>
+          <div class="mc-title">Postos sem voz</div>
+          <div class="mc-desc">Donos que investem em boa estrutura não têm como mostrar isso e atrair clientes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Como o negócio funciona -->
+    <div class="narrative" style="margin-top: 44px;">
       <h4 style="margin-bottom:16px">Como o negócio funciona — do início ao fim</h4>
       <div class="flow">
         <div class="fstep">
@@ -963,13 +1040,80 @@
         </div>
       </div>
     </div>
+
+    <!-- Modelo de negócio -->
+    <div style="margin-top: 44px;">
+      <h4 style="margin-bottom: 8px;">Como geramos receita</h4>
+      <p style="margin-bottom: 20px; color: var(--muted); font-size: 14px;">Um modelo sustentável baseado em três fluxos principais que crescem junto com o valor entregue.</p>
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">👥</div>
+          <div class="mc-title">Assinaturas de usuário</div>
+          <div class="mc-desc">Planos mensal, anual e passe de viagem liberam recursos premium como planejamento de rotas no app mobile.</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">💳</div>
+          <div class="mc-title">Taxa de reivindicação</div>
+          <div class="mc-desc">O primeiro posto é gratuito; a partir do segundo, cobramos uma taxa de verificação para claim.</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-ico" style="color: var(--brand);">✨</div>
+          <div class="mc-title">Planos para donos</div>
+          <div class="mc-desc">Planos Basic, Gold e Premium liberam gestão de múltiplos postos, cupons de desconto e preços de combustíveis.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nossa visão -->
+    <div style="margin-top: 44px; padding: 24px; background: var(--surface); border-radius: var(--r-lg); border: 1px solid var(--border); text-align: center;">
+      <h4 style="margin-bottom: 12px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; color: var(--brand-dk);">Nossa Visão</h4>
+      <p style="font-size: 15px; color: var(--ink); max-width: 760px; margin: 0 auto; line-height: 1.6;">
+        Acreditamos que uma necessidade tão básica quanto um banheiro limpo não deveria ser deixada à sorte. Ao transformar a experiência coletiva em informação confiável, criamos um ciclo virtuoso: <strong>usuários ganham tranquilidade</strong>, <strong>donos ganham clientes</strong> e a estrada inteira fica melhor para todos.
+      </p>
+    </div>
+
   </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--           PARTE 0 — WEBSITE PÚBLICO            -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="part-hdr pub">
+    <div class="part-tag pub">Parte 1 de 3</div>
+    <h2>Website Público</h2>
+    <p class="sub">Páginas de acesso aberto a qualquer visitante. Apresenta o ecossistema do <strong>Number 2</strong> e direciona usuários e donos de postos para as áreas logadas.</p>
+  </div>
+
+  <!-- PUB-00 -->
+  <section class="screen pub" id="pub-00">
+    <div class="scr-hdr">
+      <span class="scr-badge pub">PUB-00</span>
+      <div>
+        <div class="scr-title">Sobre / Landing Page</div><span class="scr-url">/sobre</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">PUB-00 · Sobre / Landing Page</div>
+        <div class="photo-hint">Salvar print em: images/sobre.png</div>
+      </div>
+      <img src="images/sobre.png" alt="PUB-00 · Sobre / Landing Page">
+    </div>
+    <p class="scr-desc">Apresentação institucional do Number 2. Explica detalhadamente os problemas resolvidos para quem está na estrada, as vantagens para os donos de postos e os fluxos de monetização.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>Design responsivo com cabeçalho limpo, botões de ação e transição suave entre seções.</li>
+      <li><span class="obs-dot"></span>Seção "O problema que resolvemos" ilustrada com 3 grandes pilares.</li>
+      <li class="hi"><span class="obs-dot"></span>Detalhamento dos três protagonistas (Usuário, Dono do Posto e Plataforma) com suas respectivas responsabilidades e benefícios.</li>
+      <li><span class="obs-dot"></span>Seção explicativa sobre as fontes de monetização da rede e visão de longo prazo da marca.</li>
+    </ul>
+  </section>
 
   <!-- ══════════════════════════════════════════════ -->
   <!--           PARTE 1 — PORTAL ADMIN              -->
   <!-- ══════════════════════════════════════════════ -->
   <div class="part-hdr adm">
-    <div class="part-tag adm">Parte 1 de 2</div>
+    <div class="part-tag adm">Parte 2 de 3</div>
     <h2>Portal Admin</h2>
     <p class="sub">Usado pela nossa equipe interna. Faça login em <code>/login</code> com as credenciais de
       administrador. O menu lateral muda conforme o cargo do usuário logado.</p>
@@ -1343,7 +1487,7 @@
   <!--           PARTE 2 — PORTAL OWNER              -->
   <!-- ══════════════════════════════════════════════ -->
   <div class="part-hdr own">
-    <div class="part-tag own">Parte 2 de 2</div>
+    <div class="part-tag own">Parte 3 de 3</div>
     <h2>Portal Owner</h2>
     <p class="sub">Usado pelos donos de posto — nossos clientes B2B. Login em <code>/owner/login</code>. Todo novo dono
       passa por um <strong>fluxo de onboarding</strong> (OWN-01 a OWN-03) antes de ter acesso ao painel completo.</p>
@@ -1598,6 +1742,10 @@
     <h4>Checklist de revisão</h4>
     <p class="sub">Pode usar essa parte para marcar oque ja revisou</p>
     <div class="check-grid">
+      <div class="check-group">
+        <div class="cg-title pub">Website Público — 1 tela</div>
+        <label class="ci"><input type="checkbox"><span class="cid pub">PUB-00</span> Sobre / Landing Page</label>
+      </div>
       <div class="check-group">
         <div class="cg-title adm">Portal Admin — 11 telas</div>
         <label class="ci"><input type="checkbox"><span class="cid adm">ADM-00</span> Login</label>

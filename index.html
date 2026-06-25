@@ -189,12 +189,19 @@ strong{font-weight:600;color:var(--ink)}
   width:100%;min-height:300px;
   border:2px dashed var(--border-strong);border-radius:var(--r-lg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;cursor:pointer;margin-bottom:24px;
+  gap:10px;margin-bottom:24px;
   background:var(--surface);transition:border-color .2s,background .15s;
   position:relative;overflow:hidden;
 }
-.photo-box:hover{border-color:var(--brand);background:var(--brand-lt)}
-.photo-box img{width:100%;height:auto;border-radius:calc(var(--r-lg) - 2px);display:block}
+.photo-box:not(.filled):hover{border-color:var(--brand);background:var(--brand-lt)}
+.photo-box img{
+  display:none;width:100%;height:auto;border-radius:calc(var(--r-lg) - 2px);
+}
+.photo-box.filled img{display:block}
+.photo-box.filled .photo-inner{display:none}
+.photo-box.filled{
+  min-height:unset;border:1px solid var(--border);background:transparent;
+}
 .photo-inner{display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
 .photo-ico{
   width:48px;height:48px;border-radius:var(--r);
@@ -203,7 +210,6 @@ strong{font-weight:600;color:var(--ink)}
 }
 .photo-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--muted)}
 .photo-hint{font-size:12px;color:var(--subtle)}
-.photo-input{position:absolute;inset:0;opacity:0;cursor:pointer}
 @media print{
   .photo-box{min-height:200px;border:1px solid var(--border)}
   .photo-inner{display:none}
@@ -398,13 +404,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-00</span>
     <div><div class="scr-title">Login</div><span class="scr-url">/login</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-00 · Login</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-00.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-00.png" alt="ADM-00 · Login">
   </div>
   <p class="scr-desc">Ponto de entrada único para o sistema. Admin e Owner compartilham a mesma tela de login — o sistema identifica o tipo de acesso automaticamente após autenticar.</p>
   <div class="obs-lbl">O que observar</div>
@@ -421,13 +427,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-01</span>
     <div><div class="scr-title">Dashboard</div><span class="scr-url">/admin</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-01 · Dashboard</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-01.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-01.png" alt="ADM-01 · Dashboard">
   </div>
   <p class="scr-desc">Tela inicial do Admin — o "painel de saúde" da plataforma. Dá uma visão instantânea de tudo que está acontecendo: usuários, avaliações, receita e atividades recentes, em tempo real.</p>
   <div class="obs-lbl">O que observar</div>
@@ -446,13 +452,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-02</span>
     <div><div class="scr-title">User Management</div><span class="scr-url">/admin/users</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-02 · User Management</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-02.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-02.png" alt="ADM-02 · User Management">
   </div>
   <p class="scr-desc">Lista completa de todos os usuários do app. Oferece busca, filtros avançados e ordenação — controle total da base de usuários em uma única tela.</p>
   <div class="obs-lbl">O que observar</div>
@@ -470,13 +476,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-03</span>
     <div><div class="scr-title">User Profile</div><span class="scr-url">/admin/users/{id}</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-03 · User Profile</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-03.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-03.png" alt="ADM-03 · User Profile">
   </div>
   <p class="scr-desc">Perfil individual de um usuário. Concentra contribuição de receita, histórico de atividade, avaliações dadas e controles de moderação de conta. Acesse clicando no ícone de olho em qualquer linha da lista de usuários.</p>
   <div class="obs-lbl">O que observar</div>
@@ -495,13 +501,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-04</span>
     <div><div class="scr-title">Vendor Management</div><span class="scr-url">/admin/vendors</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-04 · Vendor Management</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-04.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-04.png" alt="ADM-04 · Vendor Management">
   </div>
   <p class="scr-desc">Lista de todos os donos de posto (vendors). É aqui que o admin gerencia quem está aguardando aprovação e quem já está ativo na plataforma — ponto de partida do fluxo de onboarding B2B.</p>
   <div class="obs-lbl">O que observar</div>
@@ -520,13 +526,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-05</span>
     <div><div class="scr-title">Vendor Profile — Aprovação KYC</div><span class="scr-url">/admin/vendors/{id}</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-05 · Vendor Profile</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-05.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-05.png" alt="ADM-05 · Vendor Profile">
   </div>
   <p class="scr-desc"><strong>A tela mais crítica do fluxo B2B.</strong> O admin vê o perfil completo do dono — KPIs de desempenho, avaliações recebidas, receita gerada — e toma a decisão de aprovar ou rejeitar os documentos enviados (CNPJ / CPF).</p>
   <div class="obs-lbl">O que observar</div>
@@ -547,13 +553,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-06</span>
     <div><div class="scr-title">Mapa de Postos</div><span class="scr-url">/admin/gas-stations</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-06 · Mapa de Postos</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-06.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-06.png" alt="ADM-06 · Mapa de Postos">
   </div>
   <p class="scr-desc">Visão geográfica de toda a cobertura da plataforma. Permite entender em quais regiões a plataforma está presente e onde existem oportunidades de crescimento — postos sem dono associado.</p>
   <div class="obs-lbl">O que observar</div>
@@ -571,13 +577,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-07</span>
     <div><div class="scr-title">Detalhe do Posto</div><span class="scr-url">/admin/stations/{id}</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-07 · Station Detail</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-07.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-07.png" alt="ADM-07 · Station Detail">
   </div>
   <p class="scr-desc">Visão 360° de um posto específico. Toda informação sobre o estabelecimento organizada em abas: estrutura física, avaliações, fotos e localização.</p>
   <div class="obs-lbl">O que observar</div>
@@ -596,13 +602,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-08</span>
     <div><div class="scr-title">Finance Management</div><span class="scr-url">/admin/finance</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-08 · Finance</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-08.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-08.png" alt="ADM-08 · Finance">
   </div>
   <p class="scr-desc">Painel financeiro completo. Mostra de onde vem cada real de receita e como ela evolui ao longo do tempo — consolidando assinaturas de usuários, taxas de claim e planos de donos em uma única visão.</p>
   <div class="obs-lbl">O que observar</div>
@@ -621,13 +627,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-09</span>
     <div><div class="scr-title">Detalhe de Transação</div><span class="scr-url">/admin/finance/transactions/{id}</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-09 · Transaction Detail</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-09.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-09.png" alt="ADM-09 · Transaction Detail">
   </div>
   <p class="scr-desc">Rastreabilidade completa de cada pagamento processado via Stripe. Permite auditoria total — de qual cliente pagou, qual produto adquiriu e quando o pagamento foi confirmado — com sincronização em tempo real com a Stripe.</p>
   <div class="obs-lbl">O que observar</div>
@@ -646,13 +652,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge adm">ADM-10</span>
     <div><div class="scr-title">Team Management</div><span class="scr-url">/admin/team</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">ADM-10 · Team Management</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/adm-10.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/adm-10.png" alt="ADM-10 · Team Management">
   </div>
   <p class="scr-desc">Gestão completa da equipe interna. Define quem pode fazer o quê: cada cargo vê somente as seções relevantes para sua função, protegendo dados sensíveis de acesso não-autorizado.</p>
   <div class="obs-lbl">O que observar</div>
@@ -679,13 +685,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-00</span>
     <div><div class="scr-title">Login Owner</div><span class="scr-url">/owner/login</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-00 · Login Owner</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-00.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-00.png" alt="OWN-00 · Login Owner">
   </div>
   <p class="scr-desc">Tela de acesso do Portal Owner, com opção de criar nova conta. É o ponto de entrada do fluxo de onboarding para novos donos de posto.</p>
   <div class="obs-lbl">O que observar</div>
@@ -701,13 +707,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-01</span>
     <div><div class="scr-title">Onboarding: Claim Station</div><span class="scr-url">/owner/claim</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-01 · Claim Station</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-01.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-01.png" alt="OWN-01 · Claim Station">
   </div>
   <p class="scr-desc">O dono escolhe qual posto pertence a ele. Usa o mapa ou a busca para localizar o estabelecimento. O primeiro posto é gratuito; postos adicionais pagam uma taxa via Stripe antes de prosseguir.</p>
   <div class="obs-lbl">O que observar</div>
@@ -724,13 +730,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-02</span>
     <div><div class="scr-title">Onboarding: Envio de Documentos</div><span class="scr-url">Modal "Verify Ownership"</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-02 · Envio de Documentos</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-02.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-02.png" alt="OWN-02 · Envio de Documentos">
   </div>
   <p class="scr-desc">Etapa de verificação de identidade (KYC). O dono preenche CNPJ, Razão Social e faz upload dos documentos comprobatórios. Após o envio, entra em fila de revisão pela equipe admin.</p>
   <div class="obs-lbl">O que observar</div>
@@ -747,13 +753,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-03</span>
     <div><div class="scr-title">Onboarding: Aguardando Aprovação</div><span class="scr-url">/owner/claim/pending</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-03 · Aguardando Aprovação</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-03.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-03.png" alt="OWN-03 · Aguardando Aprovação">
   </div>
   <p class="scr-desc">Tela de espera enquanto a equipe admin revisa os documentos. O dono vê o posto que reivindicou, mas não tem acesso às funcionalidades de gestão até a aprovação ser concedida.</p>
   <div class="obs-lbl">O que observar</div>
@@ -770,13 +776,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-04</span>
     <div><div class="scr-title">Dashboard do Owner</div><span class="scr-url">/owner</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-04 · Dashboard Owner</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-04.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-04.png" alt="OWN-04 · Dashboard Owner">
   </div>
   <p class="scr-desc">Painel principal do dono após a aprovação. Funciona como um "Google Meu Negócio" especializado: o dono acompanha em tempo real como seu posto está sendo avaliado pelos usuários do app.</p>
   <div class="obs-lbl">O que observar</div>
@@ -795,13 +801,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-05</span>
     <div><div class="scr-title">Gas Stations — Lista do Dono</div><span class="scr-url">/owner/gas-stations</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-05 · Gas Stations</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-05.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-05.png" alt="OWN-05 · Gas Stations">
   </div>
   <p class="scr-desc">Visão geral de todos os postos que o dono gerencia. Permite acompanhar o desempenho de cada estabelecimento e iniciar o processo de adicionar novos postos à conta.</p>
   <div class="obs-lbl">O que observar</div>
@@ -819,13 +825,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-06</span>
     <div><div class="scr-title">Station Detail — Gestão do Posto</div><span class="scr-url">/owner/stations/{id}</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-06 · Station Detail</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-06.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-06.png" alt="OWN-06 · Station Detail">
   </div>
   <p class="scr-desc">Tela de gestão de um posto específico. O dono configura seus banheiros, adiciona amenidades, atualiza preços de combustível (exclusivo plano Premium) e cria cupons de desconto para atrair usuários.</p>
   <div class="obs-lbl">O que observar</div>
@@ -842,13 +848,13 @@ strong{font-weight:600;color:var(--ink)}
     <span class="scr-badge own">OWN-07</span>
     <div><div class="scr-title">Plans &amp; Billing</div><span class="scr-url">/owner/plans</span></div>
   </div>
-  <div class="photo-box" onclick="this.querySelector('input').click()">
+  <div class="photo-box">
     <div class="photo-inner">
       <div class="photo-ico">🖼</div>
       <div class="photo-id">OWN-07 · Plans &amp; Billing</div>
-      <div class="photo-hint">Clique para inserir o print desta tela</div>
+      <div class="photo-hint">Salvar print em: images/own-07.png</div>
     </div>
-    <input type="file" accept="image/*" class="photo-input" onchange="loadImg(this)">
+    <img src="images/own-07.png" alt="OWN-07 · Plans &amp; Billing">
   </div>
   <p class="scr-desc">Página de planos do Portal Owner. Apresenta o que cada nível oferece e permite upgrade ou gerenciamento da assinatura via Stripe Customer Portal — sem precisar contatar a equipe.</p>
   <div class="obs-lbl">O que observar</div>
@@ -901,24 +907,20 @@ strong{font-weight:600;color:var(--ink)}
 </div>
 
 <script>
-function loadImg(input) {
-  var file = input.files[0];
-  if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var box = input.closest('.photo-box');
-    var img = document.createElement('img');
-    img.src = e.target.result;
-    box.innerHTML = '';
-    box.appendChild(img);
-    box.style.minHeight = 'unset';
-    box.style.border = '1px solid #e2e8f0';
-    box.style.cursor = 'default';
-    box.style.padding = '0';
-    box.style.background = 'transparent';
-  };
-  reader.readAsDataURL(file);
-}
+document.querySelectorAll('.photo-box img').forEach(img => {
+  // Se a imagem já estiver carregada (cache)
+  if (img.complete && img.naturalWidth > 0) {
+    img.closest('.photo-box').classList.add('filled');
+  } else {
+    img.addEventListener('load', () => {
+      img.closest('.photo-box').classList.add('filled');
+    });
+    // Esconde o ícone de imagem quebrada caso o arquivo não exista
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+    });
+  }
+});
 </script>
 
 </body>

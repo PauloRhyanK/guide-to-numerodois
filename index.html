@@ -1,927 +1,1654 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gas Station App · Manual do Gestor</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-:root{
-  --brand:#0D9488;--brand-dk:#0F766E;--brand-lt:#F0FDFA;
-  --admin:#2563EB;--admin-bg:#EFF6FF;--admin-border:#BFDBFE;--admin-text:#1E40AF;
-  --owner:#059669;--owner-bg:#ECFDF5;--owner-border:#A7F3D0;--owner-text:#065F46;
-  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--amber-text:#92400E;
-  --red:#DC2626;--red-bg:#FEF2F2;--red-border:#FECACA;
-  --ink:#0F172A;--muted:#64748B;--subtle:#94A3B8;
-  --surface:#F8FAFC;--white:#fff;
-  --border:#E2E8F0;--border-strong:#CBD5E1;
-  --r:8px;--r-lg:12px;--r-xl:16px;
-}
-body{
-  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
-  font-size:15px;line-height:1.65;color:var(--ink);
-  background:#fff;max-width:980px;margin:0 auto;
-}
-code,pre,.mono{font-family:'JetBrains Mono',monospace;font-size:0.88em;}
-h1{font-size:34px;font-weight:700;line-height:1.2}
-h2{font-size:24px;font-weight:600;line-height:1.3}
-h3{font-size:18px;font-weight:600}
-h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
-p{color:#374151}
-strong{font-weight:600;color:var(--ink)}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gas Station App · Manual do Gestor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-/* ── STICKY BAR ────────────────────────────────── */
-.topbar{
-  position:sticky;top:0;z-index:200;
-  background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--border);
-  padding:10px 48px;display:flex;align-items:center;justify-content:space-between;
-}
-.topbar-title{font-size:13px;font-weight:500;color:var(--muted)}
-.topbar-title span{color:var(--ink)}
-.btn-print{
-  font-size:13px;font-weight:600;padding:8px 18px;
-  background:var(--ink);color:#fff;border:none;border-radius:var(--r);cursor:pointer;
-}
-.btn-print:hover{background:#1e293b}
-.btn-hint{
-  font-size:12px;color:var(--muted);margin-left:10px;font-weight:400;
-}
-@media print{.topbar{display:none}}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* ── COVER ─────────────────────────────────────── */
-.cover{
-  background:var(--ink);color:#fff;
-  padding:72px 56px 60px;position:relative;overflow:hidden;
-}
-.cover::before{
-  content:'';position:absolute;top:-60px;right:-80px;
-  width:440px;height:440px;border-radius:50%;
-  background:radial-gradient(circle,rgba(13,148,136,.25) 0%,transparent 70%);
-}
-.cover::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(to right,rgba(13,148,136,.5),transparent);
-}
-.cover-eyebrow{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  background:rgba(13,148,136,.15);color:#5eead4;
-  border:1px solid rgba(94,234,212,.25);padding:5px 14px;border-radius:100px;
-  margin-bottom:24px;
-}
-.cover h1{color:#fff;margin-bottom:10px;position:relative}
-.cover-sub{font-size:17px;color:#94a3b8;max-width:500px;line-height:1.6;position:relative}
-.cover-pills{display:flex;gap:10px;margin-top:36px;flex-wrap:wrap;position:relative}
-.cpill{
-  font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px;
-  border:1px solid rgba(255,255,255,.12);color:#cbd5e1;
-}
-.cpill span{color:#5eead4;font-weight:700}
+    :root {
+      --brand: #0D9488;
+      --brand-dk: #0F766E;
+      --brand-lt: #F0FDFA;
+      --admin: #2563EB;
+      --admin-bg: #EFF6FF;
+      --admin-border: #BFDBFE;
+      --admin-text: #1E40AF;
+      --owner: #059669;
+      --owner-bg: #ECFDF5;
+      --owner-border: #A7F3D0;
+      --owner-text: #065F46;
+      --amber: #D97706;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --amber-text: #92400E;
+      --red: #DC2626;
+      --red-bg: #FEF2F2;
+      --red-border: #FECACA;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --subtle: #94A3B8;
+      --surface: #F8FAFC;
+      --white: #fff;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --r: 8px;
+      --r-lg: 12px;
+      --r-xl: 16px;
+    }
 
-/* ── TOC ────────────────────────────────────────── */
-.toc{
-  padding:36px 56px;background:var(--surface);
-  border-bottom:1px solid var(--border);
-}
-.toc h4{margin-bottom:18px}
-.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.toc-item{
-  display:flex;align-items:center;gap:10px;
-  padding:8px 10px;border-radius:var(--r);
-  text-decoration:none;color:#374151;font-size:13px;
-  transition:background .1s;
-}
-.toc-item:hover{background:var(--border);color:var(--ink)}
-.tid{
-  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
-  padding:3px 7px;border-radius:5px;flex-shrink:0;
-}
-.tid.adm{background:var(--admin-bg);color:var(--admin-text)}
-.tid.own{background:var(--owner-bg);color:var(--owner-text)}
-.toc-sep{
-  grid-column:1/-1;padding:10px 10px 4px;
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--subtle);
-}
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: #fff;
+      max-width: 980px;
+      margin: 0 auto;
+    }
 
-/* ── INTRO ──────────────────────────────────────── */
-.intro{padding:52px 56px 44px;border-bottom:2px solid var(--border)}
-.intro h4{margin-bottom:20px}
-.intro-lead{
-  font-size:16px;color:#374151;line-height:1.7;margin-bottom:32px;max-width:700px;
-}
-.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 36px}
-.model-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--r-lg);padding:22px 20px;
-}
-.model-card.adm{border-top:3px solid var(--admin)}
-.model-card.own{border-top:3px solid var(--owner)}
-.model-card.app{border-top:3px solid var(--brand)}
-.mc-ico{font-size:26px;margin-bottom:10px}
-.mc-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
-.mc-desc{font-size:13px;color:var(--muted);line-height:1.55}
-.narrative h4{margin-bottom:16px}
-.flow{display:flex;flex-direction:column;gap:0}
-.fstep{
-  display:flex;gap:16px;align-items:flex-start;
-  padding:14px 0;border-bottom:1px solid var(--surface);
-}
-.fstep:last-child{border-bottom:none}
-.fn{
-  min-width:30px;height:30px;border-radius:50%;
-  background:var(--brand);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px;
-}
-.fb{font-size:14px;color:#374151;line-height:1.6}
-.fref{
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
-  color:var(--brand-dk);background:var(--brand-lt);
-  padding:2px 6px;border-radius:4px;
-}
+    code,
+    pre,
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+    }
 
-/* ── PART HEADER ────────────────────────────────── */
-.part-hdr{padding:36px 56px 28px;border-bottom:3px solid}
-.part-hdr.adm{background:var(--admin-bg);border-color:var(--admin)}
-.part-hdr.own{background:var(--owner-bg);border-color:var(--owner)}
-.part-tag{
-  display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.08em;padding:5px 12px;border-radius:100px;margin-bottom:10px;
-}
-.part-tag.adm{background:var(--admin);color:#fff}
-.part-tag.own{background:var(--owner);color:#fff}
-.part-hdr h2{font-size:28px;margin-bottom:8px}
-.part-hdr .sub{font-size:15px;color:var(--muted);max-width:600px}
-.part-hdr code{
-  background:rgba(0,0,0,.06);padding:2px 8px;
-  border-radius:5px;font-size:13px;
-}
+    h1 {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2
+    }
 
-/* ── SCREEN SECTION ─────────────────────────────── */
-.screen{
-  padding:44px 56px;border-bottom:1px solid var(--border);
-  border-left:3px solid transparent;
-}
-.screen.adm{border-left-color:var(--admin)}
-.screen.own{border-left-color:var(--owner)}
-.scr-hdr{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
-.scr-badge{
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
-  padding:5px 10px;border-radius:6px;flex-shrink:0;margin-top:4px;
-  border:1px solid;
-}
-.scr-badge.adm{background:var(--admin-bg);color:var(--admin-text);border-color:var(--admin-border)}
-.scr-badge.own{background:var(--owner-bg);color:var(--owner-text);border-color:var(--owner-border)}
-.scr-title{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:5px}
-.scr-url{
-  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
-  background:var(--surface);padding:3px 9px;border-radius:5px;
-  border:1px solid var(--border);display:inline-block;
-}
-.scr-desc{font-size:15px;color:#374151;line-height:1.7;margin-bottom:22px}
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3
+    }
 
-/* ── SCREENSHOT PLACEHOLDER ─────────────────────── */
-.photo-box{
-  width:100%;min-height:300px;
-  border:2px dashed var(--border-strong);border-radius:var(--r-lg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;margin-bottom:24px;
-  background:var(--surface);transition:border-color .2s,background .15s;
-  position:relative;overflow:hidden;
-}
-.photo-box:not(.filled):hover{border-color:var(--brand);background:var(--brand-lt)}
-.photo-box img{
-  display:none;width:100%;height:auto;border-radius:calc(var(--r-lg) - 2px);
-}
-.photo-box.filled img{display:block}
-.photo-box.filled .photo-inner{display:none}
-.photo-box.filled{
-  min-height:unset;border:1px solid var(--border);background:transparent;
-}
-.photo-inner{display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
-.photo-ico{
-  width:48px;height:48px;border-radius:var(--r);
-  background:var(--border);display:flex;align-items:center;justify-content:center;
-  font-size:22px;
-}
-.photo-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--muted)}
-.photo-hint{font-size:12px;color:var(--subtle)}
-@media print{
-  .photo-box{min-height:200px;border:1px solid var(--border)}
-  .photo-inner{display:none}
-}
+    h3 {
+      font-size: 18px;
+      font-weight: 600
+    }
 
-/* ── OBSERVATIONS ────────────────────────────────── */
-.obs-lbl{
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-  color:var(--muted);margin-bottom:10px;
-}
-.obs{list-style:none;display:flex;flex-direction:column;gap:8px}
-.obs li{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:11px 14px;background:var(--surface);
-  border-radius:var(--r);border-left:3px solid var(--border-strong);
-  font-size:14px;color:#374151;line-height:1.55;
-}
-.obs li.hi{border-left-color:var(--brand);background:var(--brand-lt)}
-.obs li.warn{border-left-color:var(--amber);background:var(--amber-bg)}
-.obs li.info{border-left-color:var(--admin);background:var(--admin-bg)}
-.obs li.key{border-left-color:var(--red);background:var(--red-bg)}
-.obs-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--border-strong);flex-shrink:0;margin-top:5px;
-}
-.obs li.hi .obs-dot{background:var(--brand)}
-.obs li.warn .obs-dot{background:var(--amber)}
-.obs li.info .obs-dot{background:var(--admin)}
-.obs li.key .obs-dot{background:var(--red)}
+    h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted)
+    }
 
-/* ── CALLOUT ─────────────────────────────────────── */
-.callout{
-  display:flex;gap:12px;align-items:flex-start;
-  margin-top:18px;padding:14px 16px;border-radius:var(--r);
-  font-size:14px;line-height:1.55;border:1px solid;
-}
-.callout.tip{background:var(--brand-lt);border-color:#99f6e4;color:var(--brand-dk)}
-.callout.warn{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber-text)}
-.callout.info{background:var(--admin-bg);border-color:var(--admin-border);color:var(--admin-text)}
-.callout.key{background:var(--red-bg);border-color:var(--red-border);color:#991b1b}
-.c-ico{font-size:16px;flex-shrink:0;margin-top:1px}
+    p {
+      color: #374151
+    }
 
-/* ── CHECKLIST ───────────────────────────────────── */
-.check-sect{padding:48px 56px;background:var(--surface)}
-.check-sect h4{margin-bottom:6px}
-.check-sect .sub{font-size:13px;color:var(--muted);margin-bottom:22px}
-.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.check-group{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px}
-.cg-title{
-  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-  margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);
-}
-.cg-title.adm{color:var(--admin-text)}
-.cg-title.own{color:var(--owner-text)}
-.ci{
-  display:flex;align-items:center;gap:10px;
-  padding:7px 0;border-bottom:1px solid var(--surface);
-  font-size:13px;color:#374151;cursor:pointer;
-}
-.ci:last-child{border-bottom:none}
-.ci input{accent-color:var(--brand);width:15px;height:15px;flex-shrink:0;cursor:pointer}
-.ci .cid{
-  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
-  padding:2px 6px;border-radius:4px;flex-shrink:0;
-}
-.ci .cid.adm{background:var(--admin-bg);color:var(--admin-text)}
-.ci .cid.own{background:var(--owner-bg);color:var(--owner-text)}
+    strong {
+      font-weight: 600;
+      color: var(--ink)
+    }
 
-/* ── FOOTER ──────────────────────────────────────── */
-.footer{
-  padding:32px 56px;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;color:var(--subtle);
-}
-.footer strong{color:var(--muted)}
-</style>
+    /* ── STICKY BAR ────────────────────────────────── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted)
+    }
+
+    .topbar-title span {
+      color: var(--ink)
+    }
+
+    .btn-print {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+    }
+
+    .btn-print:hover {
+      background: #1e293b
+    }
+
+    .btn-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 10px;
+      font-weight: 400;
+    }
+
+    @media print {
+      .topbar {
+        display: none
+      }
+    }
+
+    /* ── COVER ─────────────────────────────────────── */
+    .cover {
+      background: var(--ink);
+      color: #fff;
+      padding: 72px 56px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -80px;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, .25) 0%, transparent 70%);
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(13, 148, 136, .5), transparent);
+    }
+
+    .cover-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      background: rgba(13, 148, 136, .15);
+      color: #5eead4;
+      border: 1px solid rgba(94, 234, 212, .25);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .cover h1 {
+      color: #fff;
+      margin-bottom: 10px;
+      position: relative
+    }
+
+    .cover-sub {
+      font-size: 17px;
+      color: #94a3b8;
+      max-width: 500px;
+      line-height: 1.6;
+      position: relative
+    }
+
+    .cover-pills {
+      display: flex;
+      gap: 10px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+      position: relative
+    }
+
+    .cpill {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: #cbd5e1;
+    }
+
+    .cpill span {
+      color: #5eead4;
+      font-weight: 700
+    }
+
+    /* ── TOC ────────────────────────────────────────── */
+    .toc {
+      padding: 36px 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc h4 {
+      margin-bottom: 18px
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--r);
+      text-decoration: none;
+      color: #374151;
+      font-size: 13px;
+      transition: background .1s;
+    }
+
+    .toc-item:hover {
+      background: var(--border);
+      color: var(--ink)
+    }
+
+    .tid {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 7px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    .tid.adm {
+      background: var(--admin-bg);
+      color: var(--admin-text)
+    }
+
+    .tid.own {
+      background: var(--owner-bg);
+      color: var(--owner-text)
+    }
+
+    .toc-sep {
+      grid-column: 1/-1;
+      padding: 10px 10px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--subtle);
+    }
+
+    /* ── INTRO ──────────────────────────────────────── */
+    .intro {
+      padding: 52px 56px 44px;
+      border-bottom: 2px solid var(--border)
+    }
+
+    .intro h4 {
+      margin-bottom: 20px
+    }
+
+    .intro-lead {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 0 0 36px
+    }
+
+    .model-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 20px;
+    }
+
+    .model-card.adm {
+      border-top: 3px solid var(--admin)
+    }
+
+    .model-card.own {
+      border-top: 3px solid var(--owner)
+    }
+
+    .model-card.app {
+      border-top: 3px solid var(--brand)
+    }
+
+    .mc-ico {
+      font-size: 26px;
+      margin-bottom: 10px
+    }
+
+    .mc-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px
+    }
+
+    .mc-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .narrative h4 {
+      margin-bottom: 16px
+    }
+
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0
+    }
+
+    .fstep {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--surface);
+    }
+
+    .fstep:last-child {
+      border-bottom: none
+    }
+
+    .fn {
+      min-width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .fb {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.6
+    }
+
+    .fref {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--brand-dk);
+      background: var(--brand-lt);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ── PART HEADER ────────────────────────────────── */
+    .part-hdr {
+      padding: 36px 56px 28px;
+      border-bottom: 3px solid
+    }
+
+    .part-hdr.adm {
+      background: var(--admin-bg);
+      border-color: var(--admin)
+    }
+
+    .part-hdr.own {
+      background: var(--owner-bg);
+      border-color: var(--owner)
+    }
+
+    .part-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .part-tag.adm {
+      background: var(--admin);
+      color: #fff
+    }
+
+    .part-tag.own {
+      background: var(--owner);
+      color: #fff
+    }
+
+    .part-hdr h2 {
+      font-size: 28px;
+      margin-bottom: 8px
+    }
+
+    .part-hdr .sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 600px
+    }
+
+    .part-hdr code {
+      background: rgba(0, 0, 0, .06);
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+
+    /* ── SCREEN SECTION ─────────────────────────────── */
+    .screen {
+      padding: 44px 56px;
+      border-bottom: 1px solid var(--border);
+      border-left: 3px solid transparent;
+    }
+
+    .screen.adm {
+      border-left-color: var(--admin)
+    }
+
+    .screen.own {
+      border-left-color: var(--owner)
+    }
+
+    .scr-hdr {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 22px
+    }
+
+    .scr-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 4px;
+      border: 1px solid;
+    }
+
+    .scr-badge.adm {
+      background: var(--admin-bg);
+      color: var(--admin-text);
+      border-color: var(--admin-border)
+    }
+
+    .scr-badge.own {
+      background: var(--owner-bg);
+      color: var(--owner-text);
+      border-color: var(--owner-border)
+    }
+
+    .scr-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px
+    }
+
+    .scr-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 3px 9px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      display: inline-block;
+    }
+
+    .scr-desc {
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 22px
+    }
+
+    /* ── SCREENSHOT PLACEHOLDER ─────────────────────── */
+    .photo-box {
+      width: 100%;
+      min-height: 300px;
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--r-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      background: var(--surface);
+      transition: border-color .2s, background .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-box:not(.filled):hover {
+      border-color: var(--brand);
+      background: var(--brand-lt)
+    }
+
+    .photo-box img {
+      display: none;
+      width: 100%;
+      height: auto;
+      border-radius: calc(var(--r-lg) - 2px);
+    }
+
+    .photo-box.filled img {
+      display: block
+    }
+
+    .photo-box.filled .photo-inner {
+      display: none
+    }
+
+    .photo-box.filled {
+      min-height: unset;
+      border: 1px solid var(--border);
+      background: transparent;
+    }
+
+    .photo-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none
+    }
+
+    .photo-ico {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r);
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .photo-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted)
+    }
+
+    .photo-hint {
+      font-size: 12px;
+      color: var(--subtle)
+    }
+
+    @media print {
+      .photo-box {
+        min-height: 200px;
+        border: 1px solid var(--border)
+      }
+
+      .photo-inner {
+        display: none
+      }
+    }
+
+    /* ── OBSERVATIONS ────────────────────────────────── */
+    .obs-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .obs {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .obs li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 14px;
+      background: var(--surface);
+      border-radius: var(--r);
+      border-left: 3px solid var(--border-strong);
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.55;
+    }
+
+    .obs li.hi {
+      border-left-color: var(--brand);
+      background: var(--brand-lt)
+    }
+
+    .obs li.warn {
+      border-left-color: var(--amber);
+      background: var(--amber-bg)
+    }
+
+    .obs li.info {
+      border-left-color: var(--admin);
+      background: var(--admin-bg)
+    }
+
+    .obs li.key {
+      border-left-color: var(--red);
+      background: var(--red-bg)
+    }
+
+    .obs-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-strong);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .obs li.hi .obs-dot {
+      background: var(--brand)
+    }
+
+    .obs li.warn .obs-dot {
+      background: var(--amber)
+    }
+
+    .obs li.info .obs-dot {
+      background: var(--admin)
+    }
+
+    .obs li.key .obs-dot {
+      background: var(--red)
+    }
+
+    /* ── CALLOUT ─────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: var(--r);
+      font-size: 14px;
+      line-height: 1.55;
+      border: 1px solid;
+    }
+
+    .callout.tip {
+      background: var(--brand-lt);
+      border-color: #99f6e4;
+      color: var(--brand-dk)
+    }
+
+    .callout.warn {
+      background: var(--amber-bg);
+      border-color: var(--amber-border);
+      color: var(--amber-text)
+    }
+
+    .callout.info {
+      background: var(--admin-bg);
+      border-color: var(--admin-border);
+      color: var(--admin-text)
+    }
+
+    .callout.key {
+      background: var(--red-bg);
+      border-color: var(--red-border);
+      color: #991b1b
+    }
+
+    .c-ico {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    /* ── CHECKLIST ───────────────────────────────────── */
+    .check-sect {
+      padding: 48px 56px;
+      background: var(--surface)
+    }
+
+    .check-sect h4 {
+      margin-bottom: 6px
+    }
+
+    .check-sect .sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .check-group {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px
+    }
+
+    .cg-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cg-title.adm {
+      color: var(--admin-text)
+    }
+
+    .cg-title.own {
+      color: var(--owner-text)
+    }
+
+    .ci {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--surface);
+      font-size: 13px;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    .ci:last-child {
+      border-bottom: none
+    }
+
+    .ci input {
+      accent-color: var(--brand);
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      cursor: pointer
+    }
+
+    .ci .cid {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .ci .cid.adm {
+      background: var(--admin-bg);
+      color: var(--admin-text)
+    }
+
+    .ci .cid.own {
+      background: var(--owner-bg);
+      color: var(--owner-text)
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .footer {
+      padding: 32px 56px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    .footer strong {
+      color: var(--muted)
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ════════════ STICKY BAR ════════════ -->
-<div class="topbar">
-  <span class="topbar-title"><span>Gas Station App</span> · Manual do Gestor</span>
-  <div>
-    <button class="btn-print" onclick="window.print()">🖨 Imprimir / Exportar PDF</button>
-    <span class="btn-hint">Ctrl+P para PDF</span>
-  </div>
-</div>
-
-<!-- ════════════ COVER ════════════ -->
-<div class="cover">
-  <div class="cover-eyebrow">📋 Manual do Gestor</div>
-  <h1>Gas Station App</h1>
-  <p class="cover-sub">Guia completo de apresentação e teste — Portal Admin + Portal Owner. 19 telas documentadas com roteiro de navegação.</p>
-  <div class="cover-pills">
-    <div class="cpill"><span>11</span> telas Admin</div>
-    <div class="cpill"><span>8</span> telas Owner</div>
-    <div class="cpill">Ambiente de teste</div>
-    <div class="cpill">Versão 1.0</div>
-  </div>
-</div>
-
-<!-- ════════════ TOC ════════════ -->
-<div class="toc">
-  <h4>Índice de telas</h4>
-  <div class="toc-grid">
-    <div class="toc-sep">Portal Admin</div>
-    <a href="#adm-00" class="toc-item"><span class="tid adm">ADM-00</span> Login</a>
-    <a href="#adm-01" class="toc-item"><span class="tid adm">ADM-01</span> Dashboard</a>
-    <a href="#adm-02" class="toc-item"><span class="tid adm">ADM-02</span> User Management</a>
-    <a href="#adm-03" class="toc-item"><span class="tid adm">ADM-03</span> User Profile</a>
-    <a href="#adm-04" class="toc-item"><span class="tid adm">ADM-04</span> Vendor Management</a>
-    <a href="#adm-05" class="toc-item"><span class="tid adm">ADM-05</span> Vendor Profile — Aprovação KYC</a>
-    <a href="#adm-06" class="toc-item"><span class="tid adm">ADM-06</span> Mapa de Postos</a>
-    <a href="#adm-07" class="toc-item"><span class="tid adm">ADM-07</span> Detalhe do Posto</a>
-    <a href="#adm-08" class="toc-item"><span class="tid adm">ADM-08</span> Finance Management</a>
-    <a href="#adm-09" class="toc-item"><span class="tid adm">ADM-09</span> Detalhe de Transação</a>
-    <a href="#adm-10" class="toc-item"><span class="tid adm">ADM-10</span> Team Management</a>
-    <div class="toc-sep">Portal Owner</div>
-    <a href="#own-00" class="toc-item"><span class="tid own">OWN-00</span> Login Owner</a>
-    <a href="#own-01" class="toc-item"><span class="tid own">OWN-01</span> Claim Station</a>
-    <a href="#own-02" class="toc-item"><span class="tid own">OWN-02</span> Envio de Documentos</a>
-    <a href="#own-03" class="toc-item"><span class="tid own">OWN-03</span> Aguardando Aprovação</a>
-    <a href="#own-04" class="toc-item"><span class="tid own">OWN-04</span> Dashboard Owner</a>
-    <a href="#own-05" class="toc-item"><span class="tid own">OWN-05</span> Gas Stations (lista)</a>
-    <a href="#own-06" class="toc-item"><span class="tid own">OWN-06</span> Station Detail</a>
-    <a href="#own-07" class="toc-item"><span class="tid own">OWN-07</span> Plans &amp; Billing</a>
-  </div>
-</div>
-
-<!-- ════════════ INTRO ════════════ -->
-<div class="intro">
-  <h4 style="margin-bottom:20px">O que é o sistema</h4>
-  <p class="intro-lead">O <strong>Gas Station App</strong> é uma plataforma com três frentes integradas: um <strong>app mobile</strong> onde qualquer pessoa encontra e avalia banheiros de postos, um <strong>Portal Owner</strong> onde donos de posto gerenciam seu negócio e pagam pelo serviço, e um <strong>Portal Admin</strong> onde nossa equipe opera e monitora tudo.</p>
-
-  <div class="model-grid">
-    <div class="model-card app">
-      <div class="mc-ico">📱</div>
-      <div class="mc-title">App Mobile</div>
-      <div class="mc-desc">Viajante busca postos, lê avaliações de banheiros e deixa sua própria nota. Grátis, com recursos premium por assinatura.</div>
-    </div>
-    <div class="model-card adm">
-      <div class="mc-ico">🛠</div>
-      <div class="mc-title">Portal Admin</div>
-      <div class="mc-desc">Nossa equipe interna aprova donos, modera conteúdo, gerencia o time e acompanha toda a receita em tempo real.</div>
-    </div>
-    <div class="model-card own">
-      <div class="mc-ico">⛽</div>
-      <div class="mc-title">Portal Owner</div>
-      <div class="mc-desc">Dono de posto reivindica seu espaço, envia documentos, responde avaliações e assina um plano de gestão mensal.</div>
+  <!-- ════════════ STICKY BAR ════════════ -->
+  <div class="topbar">
+    <span class="topbar-title"><span>Gas Station App</span> · Manual do Gestor</span>
+    <div>
+      <button class="btn-print" onclick="window.print()">🖨 Imprimir / Exportar PDF</button>
+      <span class="btn-hint">Ctrl+P para PDF</span>
     </div>
   </div>
 
-  <div class="narrative">
-    <h4 style="margin-bottom:16px">Como o negócio funciona — do início ao fim</h4>
-    <div class="flow">
-      <div class="fstep">
-        <div class="fn">1</div>
-        <div class="fb">Viajante abre o app, encontra um posto próximo e avalia o banheiro. As notas são públicas e constroem a reputação do estabelecimento automaticamente.</div>
+  <!-- ════════════ COVER ════════════ -->
+  <div class="cover">
+    <div class="cover-eyebrow">📋 Manual do Gestor</div>
+    <h1>Gas Station App</h1>
+    <p class="cover-sub">Guia completo de apresentação e teste — Portal Admin + Portal Owner. 19 telas documentadas com
+      roteiro de navegação.</p>
+    <div class="cover-pills">
+      <div class="cpill"><span>11</span> telas Admin</div>
+      <div class="cpill"><span>8</span> telas Owner</div>
+      <div class="cpill">Ambiente de teste</div>
+      <div class="cpill">Versão 1.0</div>
+    </div>
+  </div>
+
+  <!-- ════════════ TOC ════════════ -->
+  <div class="toc">
+    <h4>Índice de telas</h4>
+    <div class="toc-grid">
+      <div class="toc-sep">Portal Admin</div>
+      <a href="#adm-00" class="toc-item"><span class="tid adm">ADM-00</span> Login</a>
+      <a href="#adm-01" class="toc-item"><span class="tid adm">ADM-01</span> Dashboard</a>
+      <a href="#adm-02" class="toc-item"><span class="tid adm">ADM-02</span> User Management</a>
+      <a href="#adm-03" class="toc-item"><span class="tid adm">ADM-03</span> User Profile</a>
+      <a href="#adm-04" class="toc-item"><span class="tid adm">ADM-04</span> Vendor Management</a>
+      <a href="#adm-05" class="toc-item"><span class="tid adm">ADM-05</span> Vendor Profile — Aprovação KYC</a>
+      <a href="#adm-06" class="toc-item"><span class="tid adm">ADM-06</span> Mapa de Postos</a>
+      <a href="#adm-07" class="toc-item"><span class="tid adm">ADM-07</span> Detalhe do Posto</a>
+      <a href="#adm-08" class="toc-item"><span class="tid adm">ADM-08</span> Finance Management</a>
+      <a href="#adm-09" class="toc-item"><span class="tid adm">ADM-09</span> Detalhe de Transação</a>
+      <a href="#adm-10" class="toc-item"><span class="tid adm">ADM-10</span> Team Management</a>
+      <div class="toc-sep">Portal Owner</div>
+      <a href="#own-00" class="toc-item"><span class="tid own">OWN-00</span> Login Owner</a>
+      <a href="#own-01" class="toc-item"><span class="tid own">OWN-01</span> Claim Station</a>
+      <a href="#own-02" class="toc-item"><span class="tid own">OWN-02</span> Envio de Documentos</a>
+      <a href="#own-03" class="toc-item"><span class="tid own">OWN-03</span> Aguardando Aprovação</a>
+      <a href="#own-04" class="toc-item"><span class="tid own">OWN-04</span> Dashboard Owner</a>
+      <a href="#own-05" class="toc-item"><span class="tid own">OWN-05</span> Gas Stations (lista)</a>
+      <a href="#own-06" class="toc-item"><span class="tid own">OWN-06</span> Station Detail</a>
+      <a href="#own-07" class="toc-item"><span class="tid own">OWN-07</span> Plans &amp; Billing</a>
+    </div>
+  </div>
+
+  <!-- ════════════ INTRO ════════════ -->
+  <div class="intro">
+    <h4 style="margin-bottom:20px">O que é o sistema</h4>
+    <p class="intro-lead">O <strong>Gas Station App</strong> é uma plataforma com três frentes integradas: um
+      <strong>app mobile</strong> onde qualquer pessoa encontra e avalia banheiros de postos, um <strong>Portal
+        Owner</strong> onde donos de posto gerenciam seu negócio e pagam pelo serviço, e um <strong>Portal
+        Admin</strong> onde nossa equipe opera e monitora tudo.</p>
+
+    <div class="model-grid">
+      <div class="model-card app">
+        <div class="mc-ico">📱</div>
+        <div class="mc-title">App Mobile</div>
+        <div class="mc-desc">Viajante busca postos, lê avaliações de banheiros e deixa sua própria nota. Grátis, com
+          recursos premium por assinatura.</div>
       </div>
-      <div class="fstep">
-        <div class="fn">2</div>
-        <div class="fb">O dono do posto acessa o <strong>Portal Owner</strong>, localiza seu posto no mapa e envia documentos para verificação de propriedade. <span class="fref">OWN-01 → OWN-02</span></div>
+      <div class="model-card adm">
+        <div class="mc-ico">🛠</div>
+        <div class="mc-title">Portal Admin</div>
+        <div class="mc-desc">Nossa equipe interna aprova donos, modera conteúdo, gerencia o time e acompanha toda a
+          receita em tempo real.</div>
       </div>
-      <div class="fstep">
-        <div class="fn">3</div>
-        <div class="fb">Nossa equipe abre o <strong>Portal Admin</strong>, revisa os documentos e aprova (ou rejeita) o dono com um clique. O dono recebe notificação por e-mail. <span class="fref">ADM-04 → ADM-05</span></div>
-      </div>
-      <div class="fstep">
-        <div class="fn">4</div>
-        <div class="fb">Aprovado, o dono acessa o dashboard completo, configura banheiros e amenidades, responde avaliações e pode assinar um plano pago. <span class="fref">OWN-04 → OWN-07</span></div>
-      </div>
-      <div class="fstep">
-        <div class="fn">5</div>
-        <div class="fb">Toda a receita — assinaturas de usuários, taxas de claim de posto e planos de donos — aparece consolidada no painel financeiro do Admin. <span class="fref">ADM-08 → ADM-09</span></div>
+      <div class="model-card own">
+        <div class="mc-ico">⛽</div>
+        <div class="mc-title">Portal Owner</div>
+        <div class="mc-desc">Dono de posto reivindica seu espaço, envia documentos, responde avaliações e assina um
+          plano de gestão mensal.</div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!--           PARTE 1 — PORTAL ADMIN              -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="part-hdr adm">
-  <div class="part-tag adm">Parte 1 de 2</div>
-  <h2>Portal Admin</h2>
-  <p class="sub">Usado pela nossa equipe interna. Faça login em <code>/login</code> com as credenciais de administrador. O menu lateral muda conforme o cargo do usuário logado.</p>
-</div>
-
-<!-- ADM-00 -->
-<section class="screen adm" id="adm-00">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-00</span>
-    <div><div class="scr-title">Login</div><span class="scr-url">/login</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-00 · Login</div>
-      <div class="photo-hint">Salvar print em: images/adm-00.png</div>
-    </div>
-    <img src="images/adm-00.png" alt="ADM-00 · Login">
-  </div>
-  <p class="scr-desc">Ponto de entrada único para o sistema. Admin e Owner compartilham a mesma tela de login — o sistema identifica o tipo de acesso automaticamente após autenticar.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Um único endereço e formulário servem os dois portais (Admin e Owner).</li>
-    <li class="hi"><span class="obs-dot"></span>"Remember Me" mantém a sessão ativa entre fechamentos do navegador — útil durante os testes.</li>
-    <li><span class="obs-dot"></span>"Forgot password?" dispara um e-mail de recuperação automático.</li>
-  </ul>
-</section>
-
-<!-- ADM-01 -->
-<section class="screen adm" id="adm-01">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-01</span>
-    <div><div class="scr-title">Dashboard</div><span class="scr-url">/admin</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-01 · Dashboard</div>
-      <div class="photo-hint">Salvar print em: images/adm-01.png</div>
-    </div>
-    <img src="images/adm-01.png" alt="ADM-01 · Dashboard">
-  </div>
-  <p class="scr-desc">Tela inicial do Admin — o "painel de saúde" da plataforma. Dá uma visão instantânea de tudo que está acontecendo: usuários, avaliações, receita e atividades recentes, em tempo real.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="hi"><span class="obs-dot"></span>Cards de estatística no topo: total de usuários, avaliações, donos verificados e receita consolidada.</li>
-    <li><span class="obs-dot"></span>Gráfico de crescimento de usuários: tendência de novos cadastros ao longo do tempo.</li>
-    <li><span class="obs-dot"></span>Gráfico de tendência de avaliações: volume e sentimento das avaliações recentes.</li>
-    <li><span class="obs-dot"></span>Feed "Atividades Recentes": novos registros, aprovações pendentes e avaliações marcadas para moderação.</li>
-  </ul>
-  <div class="callout tip"><span class="c-ico">💡</span><span>Comece a apresentação aqui. Os números em tempo real deixam clara a escala da operação antes de entrar no detalhe de cada módulo.</span></div>
-</section>
-
-<!-- ADM-02 -->
-<section class="screen adm" id="adm-02">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-02</span>
-    <div><div class="scr-title">User Management</div><span class="scr-url">/admin/users</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-02 · User Management</div>
-      <div class="photo-hint">Salvar print em: images/adm-02.png</div>
-    </div>
-    <img src="images/adm-02.png" alt="ADM-02 · User Management">
-  </div>
-  <p class="scr-desc">Lista completa de todos os usuários do app. Oferece busca, filtros avançados e ordenação — controle total da base de usuários em uma única tela.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Colunas da tabela: ID, Nome, Data de cadastro, Plano de assinatura, Status e Última atividade.</li>
-    <li class="hi"><span class="obs-dot"></span>Modal de filtro: filtra simultaneamente por plano (Free / Monthly / Yearly / Trip Pass), por status (Ativo / Inativo) e por período de cadastro.</li>
-    <li><span class="obs-dot"></span>Dropdown de ordenação: ordene por data de cadastro, plano ou última atividade para análises rápidas.</li>
-    <li class="hi"><span class="obs-dot"></span>Ícone de olho em cada linha: acessa o perfil detalhado do usuário (próxima tela, ADM-03).</li>
-  </ul>
-</section>
-
-<!-- ADM-03 -->
-<section class="screen adm" id="adm-03">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-03</span>
-    <div><div class="scr-title">User Profile</div><span class="scr-url">/admin/users/{id}</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-03 · User Profile</div>
-      <div class="photo-hint">Salvar print em: images/adm-03.png</div>
-    </div>
-    <img src="images/adm-03.png" alt="ADM-03 · User Profile">
-  </div>
-  <p class="scr-desc">Perfil individual de um usuário. Concentra contribuição de receita, histórico de atividade, avaliações dadas e controles de moderação de conta. Acesse clicando no ícone de olho em qualquer linha da lista de usuários.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Cabeçalho: avatar, nome, plano ativo e toggle Ativo / Inativo para suspender a conta.</li>
-    <li class="hi"><span class="obs-dot"></span>Card "Revenue Contribution" na sidebar: quanto esse usuário específico gerou de receita para a plataforma — útil para identificar usuários de alto valor.</li>
-    <li><span class="obs-dot"></span>Card "Reviews Given": média das avaliações e distribuição por categoria de banheiro.</li>
-    <li><span class="obs-dot"></span>"Activity History": linha do tempo das ações do usuário (avaliações, plano, relatórios).</li>
-    <li class="warn"><span class="obs-dot"></span>Modal "Edit Personal Info": permite corrigir dados de cadastro diretamente pelo admin, sem precisar contatar o usuário.</li>
-  </ul>
-</section>
-
-<!-- ADM-04 -->
-<section class="screen adm" id="adm-04">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-04</span>
-    <div><div class="scr-title">Vendor Management</div><span class="scr-url">/admin/vendors</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-04 · Vendor Management</div>
-      <div class="photo-hint">Salvar print em: images/adm-04.png</div>
-    </div>
-    <img src="images/adm-04.png" alt="ADM-04 · Vendor Management">
-  </div>
-  <p class="scr-desc">Lista de todos os donos de posto (vendors). É aqui que o admin gerencia quem está aguardando aprovação e quem já está ativo na plataforma — ponto de partida do fluxo de onboarding B2B.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="key"><span class="obs-dot"></span><strong>Banner amarelo de alerta no topo:</strong> "X vendors awaiting approval" — indica a fila de donos aguardando revisão de documentos. Este número deve ser zerado regularmente pela equipe.</li>
-    <li class="hi"><span class="obs-dot"></span>Abas de filtro rápido: <strong>All</strong> / <strong>Active</strong> / <strong>Pending</strong> / <strong>Inactive</strong>. Clique em "Pending" para ver imediatamente quem está aguardando.</li>
-    <li><span class="obs-dot"></span>Badge "New" ao lado do nome: vendors recém-cadastrados ainda não revisados pela equipe.</li>
-    <li><span class="obs-dot"></span>Colunas: número de postos, avaliação média, plano ativo e status de verificação.</li>
-  </ul>
-  <div class="callout warn"><span class="c-ico">⚠️</span><span>Vendors com status "Pending" enviaram documentos e estão travados nessa etapa até a aprovação. Eles <strong>não conseguem</strong> gerir seus postos enquanto aguardam.</span></div>
-</section>
-
-<!-- ADM-05 -->
-<section class="screen adm" id="adm-05">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-05</span>
-    <div><div class="scr-title">Vendor Profile — Aprovação KYC</div><span class="scr-url">/admin/vendors/{id}</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-05 · Vendor Profile</div>
-      <div class="photo-hint">Salvar print em: images/adm-05.png</div>
-    </div>
-    <img src="images/adm-05.png" alt="ADM-05 · Vendor Profile">
-  </div>
-  <p class="scr-desc"><strong>A tela mais crítica do fluxo B2B.</strong> O admin vê o perfil completo do dono — KPIs de desempenho, avaliações recebidas, receita gerada — e toma a decisão de aprovar ou rejeitar os documentos enviados (CNPJ / CPF).</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>4 KPIs no topo: Total de Postos, Total de Banheiros, Receita Total gerada e Issues em Aberto.</li>
-    <li><span class="obs-dot"></span>Sidebar "Verification Documents": exibe os arquivos enviados pelo dono para download e revisão.</li>
-    <li class="hi"><span class="obs-dot"></span>Sidebar "Profile Completeness": indica o quanto o cadastro do dono está preenchido — influencia a qualidade da listagem no app.</li>
-    <li class="key"><span class="obs-dot"></span>Botões <strong>Approve</strong> / <strong>Reject</strong>: um clique altera o status do dono e libera (ou bloqueia) o acesso ao portal. O dono recebe e-mail automático com a decisão.</li>
-    <li class="warn"><span class="obs-dot"></span>Modal de Rejeição: textarea para escrever o motivo da recusa. Esse texto vai diretamente para o e-mail do dono — seja claro e orientativo.</li>
-    <li><span class="obs-dot"></span>"View on Map": abre modal com localização do posto no mapa para verificar a consistência com o endereço declarado.</li>
-  </ul>
-  <div class="callout info"><span class="c-ico">🔑</span><span>Este é o coração do onboarding B2B. O fluxo completo: dono envia documentos <span class="fref">OWN-02</span> → admin aprova aqui <span class="fref">ADM-05</span> → dono acessa o painel completo <span class="fref">OWN-04</span>.</span></div>
-</section>
-
-<!-- ADM-06 -->
-<section class="screen adm" id="adm-06">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-06</span>
-    <div><div class="scr-title">Mapa de Postos</div><span class="scr-url">/admin/gas-stations</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-06 · Mapa de Postos</div>
-      <div class="photo-hint">Salvar print em: images/adm-06.png</div>
-    </div>
-    <img src="images/adm-06.png" alt="ADM-06 · Mapa de Postos">
-  </div>
-  <p class="scr-desc">Visão geográfica de toda a cobertura da plataforma. Permite entender em quais regiões a plataforma está presente e onde existem oportunidades de crescimento — postos sem dono associado.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="info"><span class="obs-dot"></span><strong>Marcador azul:</strong> posto com dono verificado e ativo na plataforma.</li>
-    <li class="hi"><span class="obs-dot"></span><strong>Marcador verde:</strong> posto disponível para reivindicação — ainda sem dono. São oportunidades de prospecção de clientes B2B.</li>
-    <li class="warn"><span class="obs-dot"></span><strong>Marcador vermelho:</strong> posto selecionado no momento, ou com issue aberto aguardando resolução.</li>
-    <li><span class="obs-dot"></span>Painel lateral "Best Stations": ranking dos postos com melhor avaliação média na plataforma.</li>
-  </ul>
-</section>
-
-<!-- ADM-07 -->
-<section class="screen adm" id="adm-07">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-07</span>
-    <div><div class="scr-title">Detalhe do Posto</div><span class="scr-url">/admin/stations/{id}</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-07 · Station Detail</div>
-      <div class="photo-hint">Salvar print em: images/adm-07.png</div>
-    </div>
-    <img src="images/adm-07.png" alt="ADM-07 · Station Detail">
-  </div>
-  <p class="scr-desc">Visão 360° de um posto específico. Toda informação sobre o estabelecimento organizada em abas: estrutura física, avaliações, fotos e localização.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Aba <strong>Overview:</strong> dados gerais do posto, dono associado, status e nota média consolidada.</li>
-    <li><span class="obs-dot"></span>Aba <strong>Bathrooms:</strong> lista de banheiros do posto com amenidades e nota individual de cada um.</li>
-    <li class="hi"><span class="obs-dot"></span>Aba <strong>Reviews:</strong> todas as avaliações recebidas, com opção de moderar (aprovar ou remover) avaliações suspeitas.</li>
-    <li><span class="obs-dot"></span>Aba <strong>Photos:</strong> galeria de imagens enviadas por usuários e pelo próprio dono do posto.</li>
-    <li><span class="obs-dot"></span>Aba <strong>Location:</strong> mapa com endereço completo e coordenadas geográficas.</li>
-  </ul>
-</section>
-
-<!-- ADM-08 -->
-<section class="screen adm" id="adm-08">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-08</span>
-    <div><div class="scr-title">Finance Management</div><span class="scr-url">/admin/finance</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-08 · Finance</div>
-      <div class="photo-hint">Salvar print em: images/adm-08.png</div>
-    </div>
-    <img src="images/adm-08.png" alt="ADM-08 · Finance">
-  </div>
-  <p class="scr-desc">Painel financeiro completo. Mostra de onde vem cada real de receita e como ela evolui ao longo do tempo — consolidando assinaturas de usuários, taxas de claim e planos de donos em uma única visão.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="hi"><span class="obs-dot"></span>3 cards de resumo no topo: <strong>Receita Total</strong>, <strong>Receita de Assinaturas</strong> (usuários premium) e <strong>Receita de Claims</strong> (taxas de registro de posto).</li>
-    <li><span class="obs-dot"></span>Gráfico de receita ao longo do tempo: identifica tendências de crescimento ou quedas.</li>
-    <li><span class="obs-dot"></span>Gráfico por tipo de assinatura: qual plano (Free→Premium, Mensal, Anual, Trip Pass) gera mais valor.</li>
-    <li class="hi"><span class="obs-dot"></span>Gráfico de Retenção / Conversão: quantos usuários free se tornaram pagantes — métrica central do modelo de negócio.</li>
-    <li><span class="obs-dot"></span>Tabela "Transactions List": histórico completo de todas as cobranças, com filtros por período, tipo e valor.</li>
-  </ul>
-</section>
-
-<!-- ADM-09 -->
-<section class="screen adm" id="adm-09">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-09</span>
-    <div><div class="scr-title">Detalhe de Transação</div><span class="scr-url">/admin/finance/transactions/{id}</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-09 · Transaction Detail</div>
-      <div class="photo-hint">Salvar print em: images/adm-09.png</div>
-    </div>
-    <img src="images/adm-09.png" alt="ADM-09 · Transaction Detail">
-  </div>
-  <p class="scr-desc">Rastreabilidade completa de cada pagamento processado via Stripe. Permite auditoria total — de qual cliente pagou, qual produto adquiriu e quando o pagamento foi confirmado — com sincronização em tempo real com a Stripe.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Card de resumo: valor cobrado, status (Pago / Pendente / Estornado), data e ID de referência no Stripe.</li>
-    <li><span class="obs-dot"></span>Card "Billing": plano adquirido e período de faturamento correspondente.</li>
-    <li><span class="obs-dot"></span>Card "Método de pagamento": bandeira do cartão e últimos 4 dígitos — sem dados sensíveis armazenados.</li>
-    <li class="hi"><span class="obs-dot"></span>Timeline de pagamento: status em tempo real do ciclo de cobrança, sincronizado automaticamente com a Stripe.</li>
-    <li class="warn"><span class="obs-dot"></span>Card de Estorno (vermelho): aparece quando há chargeback ou reembolso. Exibe motivo e data do estorno.</li>
-  </ul>
-</section>
-
-<!-- ADM-10 -->
-<section class="screen adm" id="adm-10">
-  <div class="scr-hdr">
-    <span class="scr-badge adm">ADM-10</span>
-    <div><div class="scr-title">Team Management</div><span class="scr-url">/admin/team</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">ADM-10 · Team Management</div>
-      <div class="photo-hint">Salvar print em: images/adm-10.png</div>
-    </div>
-    <img src="images/adm-10.png" alt="ADM-10 · Team Management">
-  </div>
-  <p class="scr-desc">Gestão completa da equipe interna. Define quem pode fazer o quê: cada cargo vê somente as seções relevantes para sua função, protegendo dados sensíveis de acesso não-autorizado.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Tabela de membros: nome, cargo, data de acesso e status (Ativo / Inativo).</li>
-    <li class="hi"><span class="obs-dot"></span>Modal "Add Team Member" com 4 cargos disponíveis:<br><strong>Super Admin</strong> — acesso total a tudo. <strong>Content Moderator</strong> — só moderação de avaliações. <strong>Support Agent</strong> — só usuários e relatórios. <strong>Finance User</strong> — só financeiro.</li>
-    <li class="warn"><span class="obs-dot"></span>Quando logado com um cargo limitado, itens do menu lateral desaparecem automaticamente e telas restritas exibem "Acesso Restrito".</li>
-  </ul>
-  <div class="callout tip"><span class="c-ico">💡</span><span>Para demonstrar as permissões ao vivo: crie um "Support Agent" no modal, faça logout e entre com esse novo usuário. O menu lateral terá apenas Usuários e Relatórios — o sistema impõe o controle automaticamente.</span></div>
-</section>
-
-<!-- ══════════════════════════════════════════════ -->
-<!--           PARTE 2 — PORTAL OWNER              -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="part-hdr own">
-  <div class="part-tag own">Parte 2 de 2</div>
-  <h2>Portal Owner</h2>
-  <p class="sub">Usado pelos donos de posto — nossos clientes B2B. Login em <code>/owner/login</code>. Todo novo dono passa por um <strong>fluxo de onboarding</strong> (OWN-01 a OWN-03) antes de ter acesso ao painel completo.</p>
-</div>
-
-<!-- OWN-00 -->
-<section class="screen own" id="own-00">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-00</span>
-    <div><div class="scr-title">Login Owner</div><span class="scr-url">/owner/login</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-00 · Login Owner</div>
-      <div class="photo-hint">Salvar print em: images/own-00.png</div>
-    </div>
-    <img src="images/own-00.png" alt="OWN-00 · Login Owner">
-  </div>
-  <p class="scr-desc">Tela de acesso do Portal Owner, com opção de criar nova conta. É o ponto de entrada do fluxo de onboarding para novos donos de posto.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Link "Create an account": inicia o cadastro de um novo dono de posto.</li>
-    <li class="hi"><span class="obs-dot"></span>Após criar conta e logar, o dono é direcionado imediatamente para o fluxo de claim de posto (OWN-01).</li>
-  </ul>
-</section>
-
-<!-- OWN-01 -->
-<section class="screen own" id="own-01">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-01</span>
-    <div><div class="scr-title">Onboarding: Claim Station</div><span class="scr-url">/owner/claim</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-01 · Claim Station</div>
-      <div class="photo-hint">Salvar print em: images/own-01.png</div>
-    </div>
-    <img src="images/own-01.png" alt="OWN-01 · Claim Station">
-  </div>
-  <p class="scr-desc">O dono escolhe qual posto pertence a ele. Usa o mapa ou a busca para localizar o estabelecimento. O primeiro posto é gratuito; postos adicionais pagam uma taxa via Stripe antes de prosseguir.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="hi"><span class="obs-dot"></span>Mapa interativo com lista "Available Locations" ao lado — mostra todos os postos ainda disponíveis para reivindicação.</li>
-    <li><span class="obs-dot"></span>Painel "Selected Station": aparece ao selecionar um posto, exibindo seus dados e o custo da operação.</li>
-    <li class="warn"><span class="obs-dot"></span><strong>Primeiro posto: gratuito.</strong> A partir do segundo: taxa de $29,99 por posto, cobrada via Stripe antes de continuar o onboarding.</li>
-  </ul>
-</section>
-
-<!-- OWN-02 -->
-<section class="screen own" id="own-02">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-02</span>
-    <div><div class="scr-title">Onboarding: Envio de Documentos</div><span class="scr-url">Modal "Verify Ownership"</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-02 · Envio de Documentos</div>
-      <div class="photo-hint">Salvar print em: images/own-02.png</div>
-    </div>
-    <img src="images/own-02.png" alt="OWN-02 · Envio de Documentos">
-  </div>
-  <p class="scr-desc">Etapa de verificação de identidade (KYC). O dono preenche CNPJ, Razão Social e faz upload dos documentos comprobatórios. Após o envio, entra em fila de revisão pela equipe admin.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Formulário com campos: CNPJ, Razão Social e upload de documentos (frente e verso).</li>
-    <li class="hi"><span class="obs-dot"></span>Estado de sucesso após o envio: "Documents under review" — confirma que os documentos chegaram à equipe.</li>
-    <li class="key"><span class="obs-dot"></span><strong>Conexão direta com o Portal Admin:</strong> este envio gera imediatamente a entrada no banner de aprovação pendente que o admin vê em <span class="fref">ADM-04</span> e <span class="fref">ADM-05</span>.</li>
-  </ul>
-</section>
-
-<!-- OWN-03 -->
-<section class="screen own" id="own-03">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-03</span>
-    <div><div class="scr-title">Onboarding: Aguardando Aprovação</div><span class="scr-url">/owner/claim/pending</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-03 · Aguardando Aprovação</div>
-      <div class="photo-hint">Salvar print em: images/own-03.png</div>
-    </div>
-    <img src="images/own-03.png" alt="OWN-03 · Aguardando Aprovação">
-  </div>
-  <p class="scr-desc">Tela de espera enquanto a equipe admin revisa os documentos. O dono vê o posto que reivindicou, mas não tem acesso às funcionalidades de gestão até a aprovação ser concedida.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Mensagem "Documents under review" com ícone de relógio — deixa claro que o processo está em andamento.</li>
-    <li><span class="obs-dot"></span>Lista do posto reivindicado é visível, mas sem botões ou opções de gestão disponíveis.</li>
-    <li class="key"><span class="obs-dot"></span><strong>Ponto de conexão entre portais:</strong> quando o admin clica em "Approve" no <span class="fref">ADM-05</span>, o dono recebe notificação por e-mail e o acesso ao painel completo é liberado automaticamente.</li>
-  </ul>
-</section>
-
-<!-- OWN-04 -->
-<section class="screen own" id="own-04">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-04</span>
-    <div><div class="scr-title">Dashboard do Owner</div><span class="scr-url">/owner</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-04 · Dashboard Owner</div>
-      <div class="photo-hint">Salvar print em: images/own-04.png</div>
-    </div>
-    <img src="images/own-04.png" alt="OWN-04 · Dashboard Owner">
-  </div>
-  <p class="scr-desc">Painel principal do dono após a aprovação. Funciona como um "Google Meu Negócio" especializado: o dono acompanha em tempo real como seu posto está sendo avaliado pelos usuários do app.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="hi"><span class="obs-dot"></span>4 KPIs com mini-gráficos de tendência: <strong>Visitas/Interações</strong>, <strong>Avaliação Média</strong>, <strong>Issues Reportados</strong> e <strong>Cupons Criados</strong>.</li>
-    <li><span class="obs-dot"></span>"Overall Performance Overview": nota consolidada do posto com desempenho por categoria de banheiro (limpeza, papel, sabonete, etc.).</li>
-    <li><span class="obs-dot"></span>"Engagement &amp; Usage": gráfico de visitas recebidas vs. avaliações deixadas ao longo do tempo.</li>
-    <li><span class="obs-dot"></span>Sidebar "Revenue Contribution": quanto o posto contribui para a receita da plataforma.</li>
-    <li class="hi"><span class="obs-dot"></span>Sidebar "Listing Quality": percentual de completude do cadastro — incentiva o dono a preencher todos os dados para ter mais visibilidade no app.</li>
-  </ul>
-</section>
-
-<!-- OWN-05 -->
-<section class="screen own" id="own-05">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-05</span>
-    <div><div class="scr-title">Gas Stations — Lista do Dono</div><span class="scr-url">/owner/gas-stations</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-05 · Gas Stations</div>
-      <div class="photo-hint">Salvar print em: images/own-05.png</div>
-    </div>
-    <img src="images/own-05.png" alt="OWN-05 · Gas Stations">
-  </div>
-  <p class="scr-desc">Visão geral de todos os postos que o dono gerencia. Permite acompanhar o desempenho de cada estabelecimento e iniciar o processo de adicionar novos postos à conta.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>Cards de estatística agregados no topo: total de postos gerenciados, nota média entre todos eles e número de postos ativos.</li>
-    <li class="hi"><span class="obs-dot"></span>Card de cada posto com "Listing Quality": percentual de completude do cadastro. Cadastros completos têm mais visibilidade no app para usuários.</li>
-    <li><span class="obs-dot"></span>Botão "Claim a new gas station": inicia o fluxo para adicionar um novo posto (taxa de $29,99 a partir do segundo posto).</li>
-    <li><span class="obs-dot"></span>Modal de filtro para organizar os postos por status, nota ou qualidade de cadastro.</li>
-  </ul>
-</section>
-
-<!-- OWN-06 -->
-<section class="screen own" id="own-06">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-06</span>
-    <div><div class="scr-title">Station Detail — Gestão do Posto</div><span class="scr-url">/owner/stations/{id}</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-06 · Station Detail</div>
-      <div class="photo-hint">Salvar print em: images/own-06.png</div>
-    </div>
-    <img src="images/own-06.png" alt="OWN-06 · Station Detail">
-  </div>
-  <p class="scr-desc">Tela de gestão de um posto específico. O dono configura seus banheiros, adiciona amenidades, atualiza preços de combustível (exclusivo plano Premium) e cria cupons de desconto para atrair usuários.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li class="hi"><span class="obs-dot"></span>Aba <strong>Bathroom Facilities:</strong> lista de banheiros e amenidades cadastradas. Botão "Add amenities" adiciona comodidades (sabonete, papel toalha, acessibilidade, etc.).</li>
-    <li><span class="obs-dot"></span>Aba <strong>Statistics:</strong> métricas de desempenho desse posto específico — visitas, avaliações e tendências.</li>
-    <li class="warn"><span class="obs-dot"></span>Aba <strong>Coupons:</strong> criação de cupons de desconto para atrair usuários ao posto — funcionalidade disponível nos planos pagos.</li>
-  </ul>
-</section>
-
-<!-- OWN-07 -->
-<section class="screen own" id="own-07">
-  <div class="scr-hdr">
-    <span class="scr-badge own">OWN-07</span>
-    <div><div class="scr-title">Plans &amp; Billing</div><span class="scr-url">/owner/plans</span></div>
-  </div>
-  <div class="photo-box">
-    <div class="photo-inner">
-      <div class="photo-ico">🖼</div>
-      <div class="photo-id">OWN-07 · Plans &amp; Billing</div>
-      <div class="photo-hint">Salvar print em: images/own-07.png</div>
-    </div>
-    <img src="images/own-07.png" alt="OWN-07 · Plans &amp; Billing">
-  </div>
-  <p class="scr-desc">Página de planos do Portal Owner. Apresenta o que cada nível oferece e permite upgrade ou gerenciamento da assinatura via Stripe Customer Portal — sem precisar contatar a equipe.</p>
-  <div class="obs-lbl">O que observar</div>
-  <ul class="obs">
-    <li><span class="obs-dot"></span>3 cards de plano: <strong>Basic ($39/mês)</strong>, <strong>Gold ($60/mês)</strong> e <strong>Premium ($125/mês)</strong> — cada um com lista de features incluídas.</li>
-    <li class="hi"><span class="obs-dot"></span>Badge "Recommended" destaca o plano Premium — o que gera mais receita e oferece mais valor ao dono.</li>
-    <li class="key"><span class="obs-dot"></span>Diferencial exclusivo do Premium: <strong>atualização de preços de combustível em tempo real</strong> — funcionalidade que nenhum outro plano oferece.</li>
-    <li><span class="obs-dot"></span>Botão "Manage subscription": abre o Stripe Customer Portal para trocar de plano, cancelar assinatura ou atualizar cartão de crédito.</li>
-  </ul>
-  <div class="callout info"><span class="c-ico">💳</span><span>Em ambiente de teste, use o cartão Stripe <strong>4242 4242 4242 4242</strong> com qualquer vencimento e CVV. Nenhuma cobrança real é processada.</span></div>
-</section>
-
-<!-- ════════════ CHECKLIST ════════════ -->
-<div class="check-sect" id="checklist">
-  <h4>Checklist de prints</h4>
-  <p class="sub">Marque conforme for capturando cada tela. Clique nos espaços cinzas acima para inserir o print diretamente neste documento.</p>
-  <div class="check-grid">
-    <div class="check-group">
-      <div class="cg-title adm">Portal Admin — 11 telas</div>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-00</span> Login</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-01</span> Dashboard</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-02</span> User Management</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-03</span> User Profile</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-04</span> Vendor Management</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-05</span> Vendor Profile / Aprovação</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-06</span> Mapa de Postos</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-07</span> Station Detail</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-08</span> Finance</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-09</span> Transaction Detail</label>
-      <label class="ci"><input type="checkbox"><span class="cid adm">ADM-10</span> Team Management</label>
-    </div>
-    <div class="check-group">
-      <div class="cg-title own">Portal Owner — 8 telas</div>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-00</span> Login Owner</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-01</span> Claim Station</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-02</span> Envio de Documentos</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-03</span> Aguardando Aprovação</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-04</span> Dashboard Owner</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-05</span> Gas Stations (lista)</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-06</span> Station Detail</label>
-      <label class="ci"><input type="checkbox"><span class="cid own">OWN-07</span> Plans &amp; Billing</label>
+    <div class="narrative">
+      <h4 style="margin-bottom:16px">Como o negócio funciona — do início ao fim</h4>
+      <div class="flow">
+        <div class="fstep">
+          <div class="fn">1</div>
+          <div class="fb">Viajante abre o app, encontra um posto próximo e avalia o banheiro. As notas são públicas e
+            constroem a reputação do estabelecimento automaticamente.</div>
+        </div>
+        <div class="fstep">
+          <div class="fn">2</div>
+          <div class="fb">O dono do posto acessa o <strong>Portal Owner</strong>, localiza seu posto no mapa e envia
+            documentos para verificação de propriedade. <span class="fref">OWN-01 → OWN-02</span></div>
+        </div>
+        <div class="fstep">
+          <div class="fn">3</div>
+          <div class="fb">Nossa equipe abre o <strong>Portal Admin</strong>, revisa os documentos e aprova (ou rejeita)
+            o dono com um clique. O dono recebe notificação por e-mail. <span class="fref">ADM-04 → ADM-05</span></div>
+        </div>
+        <div class="fstep">
+          <div class="fn">4</div>
+          <div class="fb">Aprovado, o dono acessa o dashboard completo, configura banheiros e amenidades, responde
+            avaliações e pode assinar um plano pago. <span class="fref">OWN-04 → OWN-07</span></div>
+        </div>
+        <div class="fstep">
+          <div class="fn">5</div>
+          <div class="fb">Toda a receita — assinaturas de usuários, taxas de claim de posto e planos de donos — aparece
+            consolidada no painel financeiro do Admin. <span class="fref">ADM-08 → ADM-09</span></div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ════════════ FOOTER ════════════ -->
-<div class="footer">
-  <span><strong>Gas Station App</strong> · Manual do Gestor · v1.0</span>
-  <span>Ambiente de teste · Nenhuma cobrança real é processada</span>
-</div>
+  <!-- ══════════════════════════════════════════════ -->
+  <!--           PARTE 1 — PORTAL ADMIN              -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="part-hdr adm">
+    <div class="part-tag adm">Parte 1 de 2</div>
+    <h2>Portal Admin</h2>
+    <p class="sub">Usado pela nossa equipe interna. Faça login em <code>/login</code> com as credenciais de
+      administrador. O menu lateral muda conforme o cargo do usuário logado.</p>
+  </div>
 
-<script>
-document.querySelectorAll('.photo-box img').forEach(img => {
-  // Se a imagem já estiver carregada (cache)
-  if (img.complete && img.naturalWidth > 0) {
-    img.closest('.photo-box').classList.add('filled');
-  } else {
-    img.addEventListener('load', () => {
-      img.closest('.photo-box').classList.add('filled');
+  <!-- ADM-00 -->
+  <section class="screen adm" id="adm-00">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-00</span>
+      <div>
+        <div class="scr-title">Login</div><span class="scr-url">/login</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-00 · Login</div>
+        <div class="photo-hint">Salvar print em: images/adm-00.png</div>
+      </div>
+      <img src="images/adm-00.png" alt="ADM-00 · Login">
+    </div>
+    <p class="scr-desc">Ponto de entrada único para o sistema. Admin e Owner compartilham a mesma tela de login — o
+      sistema identifica o tipo de acesso automaticamente após autenticar.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Um único endereço e formulário servem os dois portais (Admin e Owner).</li>
+      <li class="hi"><span class="obs-dot"></span>"Remember Me" mantém a sessão ativa entre fechamentos do navegador —
+        útil durante os testes.</li>
+      <li><span class="obs-dot"></span>"Forgot password?" dispara um e-mail de recuperação automático.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-01 -->
+  <section class="screen adm" id="adm-01">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-01</span>
+      <div>
+        <div class="scr-title">Dashboard</div><span class="scr-url">/admin</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-01 · Dashboard</div>
+        <div class="photo-hint">Salvar print em: images/adm-01.png</div>
+      </div>
+      <img src="images/adm-01.png" alt="ADM-01 · Dashboard">
+    </div>
+    <p class="scr-desc">Tela inicial do Admin — o "painel de saúde" da plataforma. Dá uma visão instantânea de tudo que
+      está acontecendo: usuários, avaliações, receita e atividades recentes, em tempo real.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>Cards de estatística no topo: total de usuários, avaliações, donos
+        verificados e receita consolidada.</li>
+      <li><span class="obs-dot"></span>Gráfico de crescimento de usuários: tendência de novos cadastros ao longo do
+        tempo.</li>
+      <li><span class="obs-dot"></span>Gráfico de tendência de avaliações: volume e sentimento das avaliações recentes.
+      </li>
+      <li><span class="obs-dot"></span>Feed "Atividades Recentes": novos registros, aprovações pendentes e avaliações
+        marcadas para moderação.</li>
+    </ul>
+    <div class="callout tip"><span class="c-ico">💡</span><span>Comece a apresentação aqui. Os números em tempo real
+        deixam clara a escala da operação antes de entrar no detalhe de cada módulo.</span></div>
+  </section>
+
+  <!-- ADM-02 -->
+  <section class="screen adm" id="adm-02">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-02</span>
+      <div>
+        <div class="scr-title">User Management</div><span class="scr-url">/admin/users</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-02 · User Management</div>
+        <div class="photo-hint">Salvar print em: images/adm-02.png</div>
+      </div>
+      <img src="images/adm-02.png" alt="ADM-02 · User Management">
+    </div>
+    <p class="scr-desc">Lista completa de todos os usuários do app. Oferece busca, filtros avançados e ordenação —
+      controle total da base de usuários em uma única tela.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Colunas da tabela: ID, Nome, Data de cadastro, Plano de assinatura, Status e
+        Última atividade.</li>
+      <li class="hi"><span class="obs-dot"></span>Modal de filtro: filtra simultaneamente por plano (Free / Monthly /
+        Yearly / Trip Pass), por status (Ativo / Inativo) e por período de cadastro.</li>
+      <li><span class="obs-dot"></span>Dropdown de ordenação: ordene por data de cadastro, plano ou última atividade
+        para análises rápidas.</li>
+      <li class="hi"><span class="obs-dot"></span>Ícone de olho em cada linha: acessa o perfil detalhado do usuário
+        (próxima tela, ADM-03).</li>
+    </ul>
+  </section>
+
+  <!-- ADM-03 -->
+  <section class="screen adm" id="adm-03">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-03</span>
+      <div>
+        <div class="scr-title">User Profile</div><span class="scr-url">/admin/users/{id}</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-03 · User Profile</div>
+        <div class="photo-hint">Salvar print em: images/adm-03.png</div>
+      </div>
+      <img src="images/adm-03.png" alt="ADM-03 · User Profile">
+    </div>
+    <p class="scr-desc">Perfil individual de um usuário. Concentra contribuição de receita, histórico de atividade,
+      avaliações dadas e controles de moderação de conta. Acesse clicando no ícone de olho em qualquer linha da lista de
+      usuários.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Cabeçalho: avatar, nome, plano ativo e toggle Ativo / Inativo para suspender a
+        conta.</li>
+      <li class="hi"><span class="obs-dot"></span>Card "Revenue Contribution" na sidebar: quanto esse usuário específico
+        gerou de receita para a plataforma — útil para identificar usuários de alto valor.</li>
+      <li><span class="obs-dot"></span>Card "Reviews Given": média das avaliações e distribuição por categoria de
+        banheiro.</li>
+      <li><span class="obs-dot"></span>"Activity History": linha do tempo das ações do usuário (avaliações, plano,
+        relatórios).</li>
+      <li class="warn"><span class="obs-dot"></span>Modal "Edit Personal Info": permite corrigir dados de cadastro
+        diretamente pelo admin, sem precisar contatar o usuário.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-04 -->
+  <section class="screen adm" id="adm-04">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-04</span>
+      <div>
+        <div class="scr-title">Vendor Management</div><span class="scr-url">/admin/vendors</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-04 · Vendor Management</div>
+        <div class="photo-hint">Salvar print em: images/adm-04.png</div>
+      </div>
+      <img src="images/adm-04.png" alt="ADM-04 · Vendor Management">
+    </div>
+    <p class="scr-desc">Lista de todos os donos de posto (vendors). É aqui que o admin gerencia quem está aguardando
+      aprovação e quem já está ativo na plataforma — ponto de partida do fluxo de onboarding B2B.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="key"><span class="obs-dot"></span><strong>Banner amarelo de alerta no topo:</strong> "X vendors
+        awaiting approval" — indica a fila de donos aguardando revisão de documentos. Este número deve ser zerado
+        regularmente pela equipe.</li>
+      <li class="hi"><span class="obs-dot"></span>Abas de filtro rápido: <strong>All</strong> / <strong>Active</strong>
+        / <strong>Pending</strong> / <strong>Inactive</strong>. Clique em "Pending" para ver imediatamente quem está
+        aguardando.</li>
+      <li><span class="obs-dot"></span>Badge "New" ao lado do nome: vendors recém-cadastrados ainda não revisados pela
+        equipe.</li>
+      <li><span class="obs-dot"></span>Colunas: número de postos, avaliação média, plano ativo e status de verificação.
+      </li>
+    </ul>
+    <div class="callout warn"><span class="c-ico">⚠️</span><span>Vendors com status "Pending" enviaram documentos e
+        estão travados nessa etapa até a aprovação. Eles <strong>não conseguem</strong> gerir seus postos enquanto
+        aguardam.</span></div>
+  </section>
+
+  <!-- ADM-05 -->
+  <section class="screen adm" id="adm-05">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-05</span>
+      <div>
+        <div class="scr-title">Vendor Profile — Aprovação KYC</div><span class="scr-url">/admin/vendors/{id}</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-05 · Vendor Profile</div>
+        <div class="photo-hint">Salvar print em: images/adm-05.png</div>
+      </div>
+      <img src="images/adm-05.png" alt="ADM-05 · Vendor Profile">
+    </div>
+    <p class="scr-desc"><strong>A tela mais crítica do fluxo B2B.</strong> O admin vê o perfil completo do dono — KPIs
+      de desempenho, avaliações recebidas, receita gerada — e toma a decisão de aprovar ou rejeitar os documentos
+      enviados (CNPJ / CPF).</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>4 KPIs no topo: Total de Postos, Total de Banheiros, Receita Total gerada e
+        Issues em Aberto.</li>
+      <li><span class="obs-dot"></span>Sidebar "Verification Documents": exibe os arquivos enviados pelo dono para
+        download e revisão.</li>
+      <li class="hi"><span class="obs-dot"></span>Sidebar "Profile Completeness": indica o quanto o cadastro do dono
+        está preenchido — influencia a qualidade da listagem no app.</li>
+      <li class="key"><span class="obs-dot"></span>Botões <strong>Approve</strong> / <strong>Reject</strong>: um clique
+        altera o status do dono e libera (ou bloqueia) o acesso ao portal. O dono recebe e-mail automático com a
+        decisão.</li>
+      <li class="warn"><span class="obs-dot"></span>Modal de Rejeição: textarea para escrever o motivo da recusa. Esse
+        texto vai diretamente para o e-mail do dono — seja claro e orientativo.</li>
+      <li><span class="obs-dot"></span>"View on Map": abre modal com localização do posto no mapa para verificar a
+        consistência com o endereço declarado.</li>
+    </ul>
+    <div class="callout info"><span class="c-ico">🔑</span><span>Este é o coração do onboarding B2B. O fluxo completo:
+        dono envia documentos <span class="fref">OWN-02</span> → admin aprova aqui <span class="fref">ADM-05</span> →
+        dono acessa o painel completo <span class="fref">OWN-04</span>.</span></div>
+  </section>
+
+  <!-- ADM-06 -->
+  <section class="screen adm" id="adm-06">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-06</span>
+      <div>
+        <div class="scr-title">Mapa de Postos</div><span class="scr-url">/admin/gas-stations</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-06 · Mapa de Postos</div>
+        <div class="photo-hint">Salvar print em: images/adm-06.png</div>
+      </div>
+      <img src="images/adm-06.png" alt="ADM-06 · Mapa de Postos">
+    </div>
+    <p class="scr-desc">Visão geográfica de toda a cobertura da plataforma. Permite entender em quais regiões a
+      plataforma está presente e onde existem oportunidades de crescimento — postos sem dono associado.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="info"><span class="obs-dot"></span><strong>Marcador azul:</strong> posto com dono verificado e ativo na
+        plataforma.</li>
+      <li class="hi"><span class="obs-dot"></span><strong>Marcador verde:</strong> posto disponível para reivindicação —
+        ainda sem dono. São oportunidades de prospecção de clientes B2B.</li>
+      <li class="warn"><span class="obs-dot"></span><strong>Marcador vermelho:</strong> posto selecionado no momento, ou
+        com issue aberto aguardando resolução.</li>
+      <li><span class="obs-dot"></span>Painel lateral "Best Stations": ranking dos postos com melhor avaliação média na
+        plataforma.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-07 -->
+  <section class="screen adm" id="adm-07">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-07</span>
+      <div>
+        <div class="scr-title">Detalhe do Posto</div><span class="scr-url">/admin/stations/{id}</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-07 · Station Detail</div>
+        <div class="photo-hint">Salvar print em: images/adm-07.png</div>
+      </div>
+      <img src="images/adm-07.png" alt="ADM-07 · Station Detail">
+    </div>
+    <p class="scr-desc">Visão 360° de um posto específico. Toda informação sobre o estabelecimento organizada em abas:
+      estrutura física, avaliações, fotos e localização.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Aba <strong>Overview:</strong> dados gerais do posto, dono associado, status e
+        nota média consolidada.</li>
+      <li><span class="obs-dot"></span>Aba <strong>Bathrooms:</strong> lista de banheiros do posto com amenidades e nota
+        individual de cada um.</li>
+      <li class="hi"><span class="obs-dot"></span>Aba <strong>Reviews:</strong> todas as avaliações recebidas, com opção
+        de moderar (aprovar ou remover) avaliações suspeitas.</li>
+      <li><span class="obs-dot"></span>Aba <strong>Photos:</strong> galeria de imagens enviadas por usuários e pelo
+        próprio dono do posto.</li>
+      <li><span class="obs-dot"></span>Aba <strong>Location:</strong> mapa com endereço completo e coordenadas
+        geográficas.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-08 -->
+  <section class="screen adm" id="adm-08">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-08</span>
+      <div>
+        <div class="scr-title">Finance Management</div><span class="scr-url">/admin/finance</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-08 · Finance</div>
+        <div class="photo-hint">Salvar print em: images/adm-08.png</div>
+      </div>
+      <img src="images/adm-08.png" alt="ADM-08 · Finance">
+    </div>
+    <p class="scr-desc">Painel financeiro completo. Mostra de onde vem cada real de receita e como ela evolui ao longo
+      do tempo — consolidando assinaturas de usuários, taxas de claim e planos de donos em uma única visão.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>3 cards de resumo no topo: <strong>Receita Total</strong>,
+        <strong>Receita de Assinaturas</strong> (usuários premium) e <strong>Receita de Claims</strong> (taxas de
+        registro de posto).</li>
+      <li><span class="obs-dot"></span>Gráfico de receita ao longo do tempo: identifica tendências de crescimento ou
+        quedas.</li>
+      <li><span class="obs-dot"></span>Gráfico por tipo de assinatura: qual plano (Free→Premium, Mensal, Anual, Trip
+        Pass) gera mais valor.</li>
+      <li class="hi"><span class="obs-dot"></span>Gráfico de Retenção / Conversão: quantos usuários free se tornaram
+        pagantes — métrica central do modelo de negócio.</li>
+      <li><span class="obs-dot"></span>Tabela "Transactions List": histórico completo de todas as cobranças, com filtros
+        por período, tipo e valor.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-09 -->
+  <section class="screen adm" id="adm-09">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-09</span>
+      <div>
+        <div class="scr-title">Detalhe de Transação</div><span class="scr-url">/admin/finance/transactions/{id}</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-09 · Transaction Detail</div>
+        <div class="photo-hint">Salvar print em: images/adm-09.png</div>
+      </div>
+      <img src="images/adm-09.png" alt="ADM-09 · Transaction Detail">
+    </div>
+    <p class="scr-desc">Rastreabilidade completa de cada pagamento processado via Stripe. Permite auditoria total — de
+      qual cliente pagou, qual produto adquiriu e quando o pagamento foi confirmado — com sincronização em tempo real
+      com a Stripe.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Card de resumo: valor cobrado, status (Pago / Pendente / Estornado), data e ID de
+        referência no Stripe.</li>
+      <li><span class="obs-dot"></span>Card "Billing": plano adquirido e período de faturamento correspondente.</li>
+      <li><span class="obs-dot"></span>Card "Método de pagamento": bandeira do cartão e últimos 4 dígitos — sem dados
+        sensíveis armazenados.</li>
+      <li class="hi"><span class="obs-dot"></span>Timeline de pagamento: status em tempo real do ciclo de cobrança,
+        sincronizado automaticamente com a Stripe.</li>
+      <li class="warn"><span class="obs-dot"></span>Card de Estorno (vermelho): aparece quando há chargeback ou
+        reembolso. Exibe motivo e data do estorno.</li>
+    </ul>
+  </section>
+
+  <!-- ADM-10 -->
+  <section class="screen adm" id="adm-10">
+    <div class="scr-hdr">
+      <span class="scr-badge adm">ADM-10</span>
+      <div>
+        <div class="scr-title">Team Management</div><span class="scr-url">/admin/team</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">ADM-10 · Team Management</div>
+        <div class="photo-hint">Salvar print em: images/adm-10.png</div>
+      </div>
+      <img src="images/adm-10.png" alt="ADM-10 · Team Management">
+    </div>
+    <p class="scr-desc">Gestão completa da equipe interna. Define quem pode fazer o quê: cada cargo vê somente as seções
+      relevantes para sua função, protegendo dados sensíveis de acesso não-autorizado.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Tabela de membros: nome, cargo, data de acesso e status (Ativo / Inativo).</li>
+      <li class="hi"><span class="obs-dot"></span>Modal "Add Team Member" com 4 cargos disponíveis:<br><strong>Super
+          Admin</strong> — acesso total a tudo. <strong>Content Moderator</strong> — só moderação de avaliações.
+        <strong>Support Agent</strong> — só usuários e relatórios. <strong>Finance User</strong> — só financeiro.</li>
+      <li class="warn"><span class="obs-dot"></span>Quando logado com um cargo limitado, itens do menu lateral
+        desaparecem automaticamente e telas restritas exibem "Acesso Restrito".</li>
+    </ul>
+    <div class="callout tip"><span class="c-ico">💡</span><span>Para demonstrar as permissões ao vivo: crie um "Support
+        Agent" no modal, faça logout e entre com esse novo usuário. O menu lateral terá apenas Usuários e Relatórios — o
+        sistema impõe o controle automaticamente.</span></div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--           PARTE 2 — PORTAL OWNER              -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="part-hdr own">
+    <div class="part-tag own">Parte 2 de 2</div>
+    <h2>Portal Owner</h2>
+    <p class="sub">Usado pelos donos de posto — nossos clientes B2B. Login em <code>/owner/login</code>. Todo novo dono
+      passa por um <strong>fluxo de onboarding</strong> (OWN-01 a OWN-03) antes de ter acesso ao painel completo.</p>
+  </div>
+
+  <!-- OWN-00 -->
+  <section class="screen own" id="own-00">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-00</span>
+      <div>
+        <div class="scr-title">Login Owner</div><span class="scr-url">/owner/login</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-00 · Login Owner</div>
+        <div class="photo-hint">Salvar print em: images/own-00.png</div>
+      </div>
+      <img src="images/own-00.png" alt="OWN-00 · Login Owner">
+    </div>
+    <p class="scr-desc">Tela de acesso do Portal Owner, com opção de criar nova conta. É o ponto de entrada do fluxo de
+      onboarding para novos donos de posto.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Link "Create an account": inicia o cadastro de um novo dono de posto.</li>
+      <li class="hi"><span class="obs-dot"></span>Após criar conta e logar, o dono é direcionado imediatamente para o
+        fluxo de claim de posto (OWN-01).</li>
+    </ul>
+  </section>
+
+  <!-- OWN-01 -->
+  <section class="screen own" id="own-01">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-01</span>
+      <div>
+        <div class="scr-title">Onboarding: Claim Station</div><span class="scr-url">/owner/claim</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-01 · Claim Station</div>
+        <div class="photo-hint">Salvar print em: images/own-01.png</div>
+      </div>
+      <img src="images/own-01.png" alt="OWN-01 · Claim Station">
+    </div>
+    <p class="scr-desc">O dono escolhe qual posto pertence a ele. Usa o mapa ou a busca para localizar o
+      estabelecimento. O primeiro posto é gratuito; postos adicionais pagam uma taxa via Stripe antes de prosseguir.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>Mapa interativo com lista "Available Locations" ao lado — mostra todos
+        os postos ainda disponíveis para reivindicação.</li>
+      <li><span class="obs-dot"></span>Painel "Selected Station": aparece ao selecionar um posto, exibindo seus dados e
+        o custo da operação.</li>
+      <li class="warn"><span class="obs-dot"></span><strong>Primeiro posto: gratuito.</strong> A partir do segundo: taxa
+        de $29,99 por posto, cobrada via Stripe antes de continuar o onboarding.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-02 -->
+  <section class="screen own" id="own-02">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-02</span>
+      <div>
+        <div class="scr-title">Onboarding: Envio de Documentos</div><span class="scr-url">Modal "Verify
+          Ownership"</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-02 · Envio de Documentos</div>
+        <div class="photo-hint">Salvar print em: images/own-02.png</div>
+      </div>
+      <img src="images/own-02.png" alt="OWN-02 · Envio de Documentos">
+    </div>
+    <p class="scr-desc">Etapa de verificação de identidade (KYC). O dono preenche CNPJ, Razão Social e faz upload dos
+      documentos comprobatórios. Após o envio, entra em fila de revisão pela equipe admin.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Formulário com campos: CNPJ, Razão Social e upload de documentos (frente e
+        verso).</li>
+      <li class="hi"><span class="obs-dot"></span>Estado de sucesso após o envio: "Documents under review" — confirma
+        que os documentos chegaram à equipe.</li>
+      <li class="key"><span class="obs-dot"></span><strong>Conexão direta com o Portal Admin:</strong> este envio gera
+        imediatamente a entrada no banner de aprovação pendente que o admin vê em <span class="fref">ADM-04</span> e
+        <span class="fref">ADM-05</span>.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-03 -->
+  <section class="screen own" id="own-03">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-03</span>
+      <div>
+        <div class="scr-title">Onboarding: Aguardando Aprovação</div><span class="scr-url">/owner/claim/pending</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-03 · Aguardando Aprovação</div>
+        <div class="photo-hint">Salvar print em: images/own-03.png</div>
+      </div>
+      <img src="images/own-03.png" alt="OWN-03 · Aguardando Aprovação">
+    </div>
+    <p class="scr-desc">Tela de espera enquanto a equipe admin revisa os documentos. O dono vê o posto que reivindicou,
+      mas não tem acesso às funcionalidades de gestão até a aprovação ser concedida.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Mensagem "Documents under review" com ícone de relógio — deixa claro que o
+        processo está em andamento.</li>
+      <li><span class="obs-dot"></span>Lista do posto reivindicado é visível, mas sem botões ou opções de gestão
+        disponíveis.</li>
+      <li class="key"><span class="obs-dot"></span><strong>Ponto de conexão entre portais:</strong> quando o admin clica
+        em "Approve" no <span class="fref">ADM-05</span>, o dono recebe notificação por e-mail e o acesso ao painel
+        completo é liberado automaticamente.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-04 -->
+  <section class="screen own" id="own-04">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-04</span>
+      <div>
+        <div class="scr-title">Dashboard do Owner</div><span class="scr-url">/owner</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-04 · Dashboard Owner</div>
+        <div class="photo-hint">Salvar print em: images/own-04.png</div>
+      </div>
+      <img src="images/own-04.png" alt="OWN-04 · Dashboard Owner">
+    </div>
+    <p class="scr-desc">Painel principal do dono após a aprovação. Funciona como um "Google Meu Negócio" especializado:
+      o dono acompanha em tempo real como seu posto está sendo avaliado pelos usuários do app.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>4 KPIs com mini-gráficos de tendência:
+        <strong>Visitas/Interações</strong>, <strong>Avaliação Média</strong>, <strong>Issues Reportados</strong> e
+        <strong>Cupons Criados</strong>.</li>
+      <li><span class="obs-dot"></span>"Overall Performance Overview": nota consolidada do posto com desempenho por
+        categoria de banheiro (limpeza, papel, sabonete, etc.).</li>
+      <li><span class="obs-dot"></span>"Engagement &amp; Usage": gráfico de visitas recebidas vs. avaliações deixadas ao
+        longo do tempo.</li>
+      <li><span class="obs-dot"></span>Sidebar "Revenue Contribution": quanto o posto contribui para a receita da
+        plataforma.</li>
+      <li class="hi"><span class="obs-dot"></span>Sidebar "Listing Quality": percentual de completude do cadastro —
+        incentiva o dono a preencher todos os dados para ter mais visibilidade no app.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-05 -->
+  <section class="screen own" id="own-05">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-05</span>
+      <div>
+        <div class="scr-title">Gas Stations — Lista do Dono</div><span class="scr-url">/owner/gas-stations</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-05 · Gas Stations</div>
+        <div class="photo-hint">Salvar print em: images/own-05.png</div>
+      </div>
+      <img src="images/own-05.png" alt="OWN-05 · Gas Stations">
+    </div>
+    <p class="scr-desc">Visão geral de todos os postos que o dono gerencia. Permite acompanhar o desempenho de cada
+      estabelecimento e iniciar o processo de adicionar novos postos à conta.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>Cards de estatística agregados no topo: total de postos gerenciados, nota média
+        entre todos eles e número de postos ativos.</li>
+      <li class="hi"><span class="obs-dot"></span>Card de cada posto com "Listing Quality": percentual de completude do
+        cadastro. Cadastros completos têm mais visibilidade no app para usuários.</li>
+      <li><span class="obs-dot"></span>Botão "Claim a new gas station": inicia o fluxo para adicionar um novo posto
+        (taxa de $29,99 a partir do segundo posto).</li>
+      <li><span class="obs-dot"></span>Modal de filtro para organizar os postos por status, nota ou qualidade de
+        cadastro.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-06 -->
+  <section class="screen own" id="own-06">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-06</span>
+      <div>
+        <div class="scr-title">Station Detail — Gestão do Posto</div><span class="scr-url">/owner/stations/{id}</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-06 · Station Detail</div>
+        <div class="photo-hint">Salvar print em: images/own-06.png</div>
+      </div>
+      <img src="images/own-06.png" alt="OWN-06 · Station Detail">
+    </div>
+    <p class="scr-desc">Tela de gestão de um posto específico. O dono configura seus banheiros, adiciona amenidades,
+      atualiza preços de combustível (exclusivo plano Premium) e cria cupons de desconto para atrair usuários.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li class="hi"><span class="obs-dot"></span>Aba <strong>Bathroom Facilities:</strong> lista de banheiros e
+        amenidades cadastradas. Botão "Add amenities" adiciona comodidades (sabonete, papel toalha, acessibilidade,
+        etc.).</li>
+      <li><span class="obs-dot"></span>Aba <strong>Statistics:</strong> métricas de desempenho desse posto específico —
+        visitas, avaliações e tendências.</li>
+      <li class="warn"><span class="obs-dot"></span>Aba <strong>Coupons:</strong> criação de cupons de desconto para
+        atrair usuários ao posto — funcionalidade disponível nos planos pagos.</li>
+    </ul>
+  </section>
+
+  <!-- OWN-07 -->
+  <section class="screen own" id="own-07">
+    <div class="scr-hdr">
+      <span class="scr-badge own">OWN-07</span>
+      <div>
+        <div class="scr-title">Plans &amp; Billing</div><span class="scr-url">/owner/plans</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <div class="photo-inner">
+        <div class="photo-ico">🖼</div>
+        <div class="photo-id">OWN-07 · Plans &amp; Billing</div>
+        <div class="photo-hint">Salvar print em: images/own-07.png</div>
+      </div>
+      <img src="images/own-07.png" alt="OWN-07 · Plans &amp; Billing">
+    </div>
+    <p class="scr-desc">Página de planos do Portal Owner. Apresenta o que cada nível oferece e permite upgrade ou
+      gerenciamento da assinatura via Stripe Customer Portal — sem precisar contatar a equipe.</p>
+    <div class="obs-lbl">O que observar</div>
+    <ul class="obs">
+      <li><span class="obs-dot"></span>3 cards de plano: <strong>Basic ($39/mês)</strong>, <strong>Gold
+          ($60/mês)</strong> e <strong>Premium ($125/mês)</strong> — cada um com lista de features incluídas.</li>
+      <li class="hi"><span class="obs-dot"></span>Badge "Recommended" destaca o plano Premium — o que gera mais receita
+        e oferece mais valor ao dono.</li>
+      <li class="key"><span class="obs-dot"></span>Diferencial exclusivo do Premium: <strong>atualização de preços de
+          combustível em tempo real</strong> — funcionalidade que nenhum outro plano oferece.</li>
+      <li><span class="obs-dot"></span>Botão "Manage subscription": abre o Stripe Customer Portal para trocar de plano,
+        cancelar assinatura ou atualizar cartão de crédito.</li>
+    </ul>
+    <div class="callout info"><span class="c-ico">💳</span><span>Em ambiente de teste, use o cartão Stripe <strong>4242
+          4242 4242 4242</strong> com qualquer vencimento e CVV. Nenhuma cobrança real é processada.</span></div>
+  </section>
+
+  <!-- ════════════ CHECKLIST ════════════ -->
+  <div class="check-sect" id="checklist">
+    <h4>Checklist de revisão</h4>
+    <p class="sub">Pode usar essa parte para marcar oque ja revisou</p>
+    <div class="check-grid">
+      <div class="check-group">
+        <div class="cg-title adm">Portal Admin — 11 telas</div>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-00</span> Login</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-01</span> Dashboard</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-02</span> User Management</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-03</span> User Profile</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-04</span> Vendor Management</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-05</span> Vendor Profile / Aprovação</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-06</span> Mapa de Postos</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-07</span> Station Detail</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-08</span> Finance</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-09</span> Transaction Detail</label>
+        <label class="ci"><input type="checkbox"><span class="cid adm">ADM-10</span> Team Management</label>
+      </div>
+      <div class="check-group">
+        <div class="cg-title own">Portal Owner — 8 telas</div>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-00</span> Login Owner</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-01</span> Claim Station</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-02</span> Envio de Documentos</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-03</span> Aguardando Aprovação</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-04</span> Dashboard Owner</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-05</span> Gas Stations (lista)</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-06</span> Station Detail</label>
+        <label class="ci"><input type="checkbox"><span class="cid own">OWN-07</span> Plans &amp; Billing</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ FOOTER ════════════ -->
+  <div class="footer">
+    <span><strong>Gas Station App</strong> · Manual do Gestor · v1.0</span>
+    <span>Ambiente de teste · Nenhuma cobrança real é processada</span>
+  </div>
+
+  <script>
+    document.querySelectorAll('.photo-box img').forEach(img => {
+      // Se a imagem já estiver carregada (cache)
+      if (img.complete && img.naturalWidth > 0) {
+        img.closest('.photo-box').classList.add('filled');
+      } else {
+        img.addEventListener('load', () => {
+          img.closest('.photo-box').classList.add('filled');
+        });
+        // Esconde o ícone de imagem quebrada caso o arquivo não exista
+        img.addEventListener('error', () => {
+          img.style.display = 'none';
+        });
+      }
     });
-    // Esconde o ícone de imagem quebrada caso o arquivo não exista
-    img.addEventListener('error', () => {
-      img.style.display = 'none';
-    });
-  }
-});
-</script>
+  </script>
 
 </body>
+
 </html>
